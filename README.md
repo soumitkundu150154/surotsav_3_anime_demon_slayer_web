@@ -1,4 +1,4 @@
-# Nichirin Nexus — Demon Slayer Festival Website
+# Nichirin Nexus — A Demon Slayer Themed Website for College Fest Promotion
 
 A cinematic, highly interactive, anime-quality festival website inspired by the visual storytelling of **Demon Slayer: Kimetsu no Yaiba** with **Ufotable** production quality.
 
