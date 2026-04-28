@@ -7,8 +7,29 @@
     cursor: none;
   }
 
+  /* Restore cursor on touch devices */
+  @media (hover: none) and (pointer: coarse) {
+    * {
+      cursor: auto !important;
+    }
+  }
+
   html {
     scroll-behavior: smooth;
+  }
+
+  /* Performance optimizations for animations */
+  .will-change-transform {
+    will-change: transform;
+  }
+
+  .will-change-opacity {
+    will-change: opacity;
+  }
+
+  .gpu-accelerated {
+    transform: translateZ(0);
+    backface-visibility: hidden;
   }
 
   body {
@@ -63,13 +84,14 @@
   }
 
   .anime-title {
-    @apply text-4xl md:text-6xl lg:text-8xl font-black tracking-wider;
+    @apply text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-black tracking-wider;
     font-family: 'Cinzel', serif;
     text-shadow: 0 0 30px rgba(255,255,255,0.3), 0 0 60px rgba(255,255,255,0.1);
+    will-change: transform, opacity;
   }
 
   .anime-subtitle {
-    @apply text-lg md:text-xl lg:text-2xl font-light tracking-[0.3em];
+    @apply text-base sm:text-lg md:text-xl lg:text-2xl font-light tracking-[0.2em] sm:tracking-[0.3em];
     font-family: 'Noto Serif JP', serif;
   }
 
