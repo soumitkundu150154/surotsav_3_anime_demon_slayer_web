@@ -225,8 +225,8 @@ export function FinalSelectionHero({ onEnter }) {
           animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           transition={{ duration: 1.2, delay: 1, ease: 'easeOut' }}
         >
-          <span className="block text-6xl md:text-8xl lg:text-9xl">Nichirin</span>
-          <span className="block text-4xl md:text-6xl lg:text-7xl mt-2 text-wisteria">Nexus</span>
+          <span className="block text-6xl md:text-8xl lg:text-9xl">Surotsav</span>
+          <span className="block text-4xl md:text-6xl lg:text-7xl mt-2 text-wisteria">2026</span>
         </motion.h1>
 
         <motion.p
