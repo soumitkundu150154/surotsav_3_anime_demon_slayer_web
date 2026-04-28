@@ -166,7 +166,16 @@ export function FinalSelectionHero({ onEnter }) {
             ],
           }}
           transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-        />
+        >
+          {/* Competition Logo on Moon */}
+          <div className="absolute inset-0 flex items-center justify-center p-4">
+            <img
+              src="/src/asstes/logo_black.png"
+              alt="Competition Logo"
+              className="w-20 h-20 object-contain drop-shadow-lg"
+            />
+          </div>
+        </motion.div>
       </motion.div>
 
       <FogLayer delay={0} opacity={0.3} />
