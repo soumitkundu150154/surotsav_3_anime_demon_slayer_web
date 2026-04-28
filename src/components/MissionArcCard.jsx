@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useArcFilter } from '../context/ArcFilterContext';
 import { useBreathing } from '../context/BreathingContext';
-import { ManthanArc } from './ManthanArc';
-import { Flame, Waves, Zap, Wind, PawPrint, X, Clock, Users, Trophy, FilterX } from 'lucide-react';
+import { CinematicArc, ARCS_DATA } from './CinematicArc';
+import { Flame, Waves, Zap, Wind, PawPrint, Sparkles, Sword, Crown, Music, X, Clock, Users, Trophy, FilterX, Target, Bot, Plane, Box, Film, Camera, Gamepad2, Brain, Puzzle, Code, Mic, MessageSquare, Scroll, Star, Car, Flag } from 'lucide-react';
 
 const BREATHING_ICONS = {
   flame: Flame,
@@ -12,6 +12,39 @@ const BREATHING_ICONS = {
   wind: Wind,
   beast: PawPrint,
 };
+
+// Generate all missions from all arcs for the initial grid view
+const ALL_MISSIONS = Object.entries(ARCS_DATA).flatMap(([arcKey, arc]) => {
+  const missions = [];
+  arc.chapters.forEach(chapter => {
+    if (chapter.missions) {
+      chapter.missions.forEach(mission => {
+        missions.push({
+          ...mission,
+          arc: arc.title,
+          arcKey,
+          arcColor: arc.color,
+          chapterTitle: chapter.title,
+        });
+      });
+    }
+    if (chapter.missionGroups) {
+      chapter.missionGroups.forEach(group => {
+        group.missions.forEach(mission => {
+          missions.push({
+            ...mission,
+            arc: arc.title,
+            arcKey,
+            arcColor: arc.color,
+            chapterTitle: chapter.title,
+            groupTitle: group.title,
+          });
+        });
+      });
+    }
+  });
+  return missions;
+});
 
 const EVENTS_DATA = [
   {
@@ -295,19 +328,78 @@ function EventModal({ event, onClose }) {
   );
 }
 
+// Arc card for initial grid view
+function ArcOverviewCard({ arcKey, arc, onClick }) {
+  const ArcIcon = { Mobmania: Sparkles, Manthan: Sword, Udaan: Crown, Tarang: Music }[arcKey] || Target;
+  const missionCount = arc.chapters.reduce((total, ch) => {
+    let count = ch.missions?.length || 0;
+    if (ch.missionGroups) {
+      ch.missionGroups.forEach(g => count += g.missions?.length || 0);
+    }
+    return total + count;
+  }, 0);
+
+  return (
+    <motion.div
+      className="relative p-6 rounded-2xl cursor-pointer overflow-hidden"
+      style={{
+        background: `linear-gradient(135deg, ${arc.color}20, #0f0f1a)`,
+        border: `2px solid ${arc.color}40`,
+      }}
+      onClick={onClick}
+      whileHover={{ 
+        scale: 1.03, 
+        borderColor: arc.color,
+        boxShadow: `0 0 40px ${arc.color}40`,
+      }}
+      whileTap={{ scale: 0.98 }}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+    >
+      <div className="flex items-start gap-4">
+        <motion.div
+          className="w-16 h-16 rounded-xl flex items-center justify-center flex-shrink-0"
+          style={{
+            background: `linear-gradient(135deg, ${arc.color}, ${arc.color}dd)`,
+            boxShadow: `0 0 30px ${arc.color}60`,
+          }}
+        >
+          <ArcIcon size={32} className="text-white" />
+        </motion.div>
+        <div className="flex-1">
+          <h3 className="text-2xl font-cinzel font-black text-white mb-1">{arc.title}</h3>
+          <p className="text-sm mb-2" style={{ color: arc.color }}>{arc.subtitle}</p>
+          <p className="text-xs text-gray-400 line-clamp-2 mb-3">{arc.tagline}</p>
+          <div className="flex items-center gap-4">
+            <span className="text-xs text-gray-500 flex items-center gap-1">
+              <Target size={12} />
+              {missionCount} Missions
+            </span>
+            <span className="text-xs text-gray-500 flex items-center gap-1">
+              <Scroll size={12} />
+              {arc.chapters.length} Chapters
+            </span>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
 export function MissionArcs() {
   const [selectedEvent, setSelectedEvent] = useState(null);
-  const { selectedArcFilter, clearFilter } = useArcFilter();
+  const { selectedArcFilter, clearFilter, filterByArc } = useArcFilter();
 
-  // Render special Manthan arc component when Manthan is selected
-  if (selectedArcFilter === 'Manthan') {
-    return <ManthanArc />;
+  // Show cinematic view when filtered by arc
+  if (selectedArcFilter && ARCS_DATA[selectedArcFilter]) {
+    return <CinematicArc arcKey={selectedArcFilter} />;
   }
 
-  // Filter events based on selected arc
-  const filteredEvents = selectedArcFilter
-    ? EVENTS_DATA.filter((event) => event.arc === selectedArcFilter)
-    : EVENTS_DATA;
+  // Show all missions grid when no filter
+  const displayedMissions = selectedArcFilter
+    ? ALL_MISSIONS.filter(m => m.arc === selectedArcFilter)
+    : ALL_MISSIONS;
 
   return (
     <section className="relative min-h-screen w-full py-24 px-6 bg-gradient-to-b from-[#0c0c1a] via-[#0f0f20] to-[#0c0c1a]">
@@ -323,13 +415,13 @@ export function MissionArcs() {
           </p>
 
           <h2 className="anime-title text-white mb-6">
-            {selectedArcFilter ? `${selectedArcFilter} Missions` : 'Available Missions'}
+            {selectedArcFilter ? `${selectedArcFilter} Missions` : 'All Available Missions'}
           </h2>
 
           <p className="anime-subtitle text-gray-400 max-w-2xl mx-auto">
             {selectedArcFilter
               ? `Explore missions from the ${selectedArcFilter} arc. Each mission is waiting for worthy participants.`
-              : 'Each event is a mission waiting for worthy slayers. Choose your path and prove your skills.'}
+              : 'Explore all missions across every arc. Click on any arc to dive deeper into its chapters and missions.'}
           </p>
 
           {/* Clear Filter Button */}
@@ -353,13 +445,71 @@ export function MissionArcs() {
           )}
         </motion.div>
 
+        {/* Arc Overview Cards - shown when no filter */}
+        {!selectedArcFilter && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="mb-12"
+          >
+            <h3 className="text-lg font-cinzel text-white mb-6 text-center">Select an Arc to Explore</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+              {Object.entries(ARCS_DATA).map(([arcKey, arc]) => (
+                <ArcOverviewCard
+                  key={arcKey}
+                  arcKey={arcKey}
+                  arc={arc}
+                  onClick={() => filterByArc(arc.title)}
+                />
+              ))}
+            </div>
+          </motion.div>
+        )}
+
+        {/* Missions Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredEvents.map((event) => (
-            <EventCard key={event.id} event={event} onClick={setSelectedEvent} />
+          {displayedMissions.slice(0, 12).map((mission) => (
+            <motion.div
+              key={mission.id}
+              className="relative p-4 rounded-xl cursor-pointer"
+              style={{
+                background: `linear-gradient(135deg, ${mission.arcColor}10, #0f0f1a)`,
+                border: `1px solid ${mission.arcColor}30`,
+              }}
+              onClick={() => setSelectedEvent(mission)}
+              whileHover={{ 
+                scale: 1.02, 
+                borderColor: mission.arcColor,
+                boxShadow: `0 0 30px ${mission.arcColor}30`,
+              }}
+              whileTap={{ scale: 0.98 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <div className="flex items-start gap-3">
+                <div 
+                  className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
+                  style={{ background: `${mission.arcColor}25` }}
+                >
+                  <Target size={20} style={{ color: mission.arcColor }} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h5 className="font-bold text-white text-sm mb-1">{mission.title}</h5>
+                  <p className="text-xs text-gray-400 line-clamp-2 mb-2">{mission.description}</p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs" style={{ color: mission.arcColor }}>
+                      {mission.arc}
+                    </span>
+                    <span className="text-xs text-gray-500">{mission.difficulty}</span>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
           ))}
         </div>
 
-        {filteredEvents.length === 0 && (
+        {displayedMissions.length === 0 && (
           <motion.div
             className="text-center py-16"
             initial={{ opacity: 0 }}
