@@ -146,12 +146,12 @@ function AppContent() {
           <CountdownBattleTimer />
         </section>
 
-        <section id="missions">
-          <MissionArcs />
-        </section>
-
         <section id="arcs">
           <FeaturedArcs />
+        </section>
+
+        <section id="missions">
+          <MissionArcs />
         </section>
 
         <section id="hashira">

@@ -295,7 +295,7 @@ export function MissionArcs() {
           viewport={{ once: true }}
         >
           <p className="text-wisteria-light text-sm tracking-[0.5em] mb-4 uppercase">
-            ARC 4 — Mission Arcs
+            ARC 5 — Mission Arcs
           </p>
 
           <h2 className="anime-title text-white mb-6">
