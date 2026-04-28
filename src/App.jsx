@@ -14,6 +14,7 @@ import { HashiraRoster } from './components/HashiraRoster';
 import { CorpsOath } from './components/CorpsOath';
 import { InfinityCastleMode } from './components/InfinityCastleMode';
 import { Navigation } from './components/Navigation';
+import { SystemGuides } from './components/SystemGuides';
 
 function ProgressBar() {
   const { scrollYProgress } = useScroll();
@@ -159,9 +160,15 @@ function AppContent() {
           <HashiraRoster />
         </section>
 
+        <section id="guides">
+          <SystemGuides />
+        </section>
+
         <section id="oath">
           <CorpsOath />
         </section>
+
+        
       </main>
 
       <Footer />

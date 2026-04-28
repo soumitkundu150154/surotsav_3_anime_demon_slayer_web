@@ -69,9 +69,9 @@ export function CorpsOath() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <p className="text-wisteria-light text-sm tracking-[0.5em] mb-4 uppercase">
-            ARC 7 — The Corps Oath
-          </p>
+          {/* <p className="text-wisteria-light text-sm tracking-[0.5em] mb-4 uppercase">
+            The Corps Oath
+          </p> */}
 
           <h2 className="anime-title text-white mb-6">
             Take the Oath
