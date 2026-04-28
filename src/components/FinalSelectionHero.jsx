@@ -172,7 +172,7 @@ export function FinalSelectionHero({ onEnter }) {
           <div className="absolute inset-0 flex items-center justify-center p-4">
             <img
               src={logoBlack}
-              alt="Competition Logo"
+              /* alt="Competition Logo" */
               className="w-20 h-20 object-contain drop-shadow-lg"
             />
           </div>
