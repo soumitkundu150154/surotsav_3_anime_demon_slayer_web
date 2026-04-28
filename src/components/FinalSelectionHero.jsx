@@ -155,27 +155,27 @@ export function FinalSelectionHero({ onEnter }) {
         style={{ y: moonY }}
       >
         <motion.div
-          className="relative w-32 h-32 rounded-full"
+          className="relative w-40 h-40 rounded-full"
           style={{
-            background: 'radial-gradient(circle at 30% 30%, #fffacd, #f0e68c 40%, #daa520 70%, #b8860b)',
-            boxShadow: '0 0 60px 20px rgba(255, 250, 205, 0.3), 0 0 100px 40px rgba(218, 165, 32, 0.1)',
+            background: 'radial-gradient(circle at 30% 30%, #ff6b6b, #e63946 40%, #c0392b 70%, #8b0000)',
+            boxShadow: '0 0 80px 30px rgba(230, 57, 70, 0.4), 0 0 120px 50px rgba(139, 0, 0, 0.2)',
           }}
           animate={{
             boxShadow: [
-              '0 0 60px 20px rgba(255, 250, 205, 0.3), 0 0 100px 40px rgba(218, 165, 32, 0.1)',
-              '0 0 80px 30px rgba(255, 250, 205, 0.4), 0 0 120px 50px rgba(218, 165, 32, 0.15)',
-              '0 0 60px 20px rgba(255, 250, 205, 0.3), 0 0 100px 40px rgba(218, 165, 32, 0.1)',
+              '0 0 80px 30px rgba(230, 57, 70, 0.4), 0 0 120px 50px rgba(139, 0, 0, 0.2)',
+              '0 0 100px 40px rgba(230, 57, 70, 0.5), 0 0 140px 60px rgba(139, 0, 0, 0.25)',
+              '0 0 80px 30px rgba(230, 57, 70, 0.4), 0 0 120px 50px rgba(139, 0, 0, 0.2)',
             ],
           }}
           transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
         >
           {/* Competition Logo on Moon */}
-          <div className="absolute inset-0 flex items-center justify-center p-4">
+          <div className="absolute inset-0 flex items-center justify-center p-5">
             <img
               // src={logoBlack}
               src={logoWhite}
               /* alt="Competition Logo" */
-              className="w-20 h-20 object-contain drop-shadow-lg"
+              className="w-28 h-28 object-contain drop-shadow-lg"
             />
           </div>
         </motion.div>
