@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useArcFilter } from '../context/ArcFilterContext';
 import { useBreathing } from '../context/BreathingContext';
-import { Flame, Waves, Zap, Wind, PawPrint, X, Clock, Users, Trophy } from 'lucide-react';
+import { ManthanArc } from './ManthanArc';
+import { Flame, Waves, Zap, Wind, PawPrint, X, Clock, Users, Trophy, FilterX } from 'lucide-react';
 
 const BREATHING_ICONS = {
   flame: Flame,
@@ -14,50 +16,61 @@ const BREATHING_ICONS = {
 const EVENTS_DATA = [
   {
     id: 1,
-    title: 'Mobmania',
+    title: 'Flash Mob',
     category: 'flame',
-    description: 'A theatrical showcase of talent and entertainment. Just as the Entertainment District arc brought joy and drama, Mobmania lights up the stage.',
-    details: 'Teams compete in theatrical performances, dance, and cultural exhibitions. The Entertainment District comes alive with your creativity.',
-    date: 'Day 1 - Evening',
-    participants: '8 teams',
-    prize: 'Grand Trophy + Certificates',
-    arc: 'Entertainment District Arc',
+    description: 'The ground transforms into a battlefield of synchronized energy. Performers move as one, creating a spectacle of rhythm and motion that ignites the festival spirit.',
+    details: 'An energetic dance performance where participants move in perfect synchronization. This is the spark that sets everything in motion — a burst of collective energy that transforms silence into celebration.',
+    date: 'Day 1 - Opening',
+    participants: 'All welcome',
+    prize: 'Performance Spotlight',
+    arc: 'Mobmania',
   },
   {
     id: 2,
-    title: 'Manthan',
+    title: 'Poster Reveal',
+    category: 'flame',
+    description: 'The unveiling of the official fest poster stands as the mission banner — the signal that the journey has begun.',
+    details: 'Witness the grand unveiling of the official Surotsav 2026 poster. This moment marks the official beginning of the festival journey, revealing the visual identity that will guide us through the celebration.',
+    date: 'Day 1 - Opening',
+    participants: 'All attendees',
+    prize: 'Exclusive Merchandise',
+    arc: 'Mobmania',
+  },
+  {
+    id: 3,
+    title: 'Manthan Opening',
     category: 'water',
     description: 'Forge innovation at the Swordsmith Village. Technical events that challenge your engineering spirit and creative problem-solving.',
     details: 'Robotics, coding competitions, and engineering challenges await. Craft your own Nichirin blade of innovation.',
     date: 'Day 2 - All Day',
     participants: 'Open to all',
     prize: 'Tech Prizes + Internship Opportunities',
-    arc: 'Swordsmith Village Arc',
+    arc: 'Manthan',
   },
   {
-    id: 3,
-    title: 'Udaan',
+    id: 4,
+    title: 'Udaan Athletics',
     category: 'thunder',
     description: 'The Final Selection awaits. Athletic prowess and competitive spirit determine who joins the Corps.',
     details: 'Sports competitions, athletic events, and physical challenges. Prove your worth through speed, strength, and endurance.',
     date: 'Day 1-2',
     participants: 'Individual & Team events',
     prize: 'Medals + Sports Gear',
-    arc: 'Final Selection Arc',
+    arc: 'Udaan',
   },
   {
-    id: 4,
-    title: 'Tarang',
+    id: 5,
+    title: 'Tarang Festival',
     category: 'wind',
     description: 'The Festival Arc begins. Cultural celebrations that flow like the wind across our campus.',
     details: 'Music, dance, art exhibitions, and cultural showcases. Express yourself through the traditional and modern arts.',
     date: 'Day 2 - Evening',
     participants: 'All students welcome',
     prize: 'Cultural Trophies',
-    arc: 'Festival Arc',
+    arc: 'Tarang',
   },
   {
-    id: 5,
+    id: 6,
     title: 'Nexus Arena',
     category: 'beast',
     description: 'Unleash your wild side in creative competitions. Gaming, art battles, and freestyle challenges.',
@@ -65,7 +78,7 @@ const EVENTS_DATA = [
     date: 'Day 1-2',
     participants: 'Individual competitions',
     prize: 'Gaming Gear + Art Supplies',
-    arc: 'Hashira Training Arc',
+    arc: 'Hashira Training',
   },
 ];
 
@@ -284,6 +297,17 @@ function EventModal({ event, onClose }) {
 
 export function MissionArcs() {
   const [selectedEvent, setSelectedEvent] = useState(null);
+  const { selectedArcFilter, clearFilter } = useArcFilter();
+
+  // Render special Manthan arc component when Manthan is selected
+  if (selectedArcFilter === 'Manthan') {
+    return <ManthanArc />;
+  }
+
+  // Filter events based on selected arc
+  const filteredEvents = selectedArcFilter
+    ? EVENTS_DATA.filter((event) => event.arc === selectedArcFilter)
+    : EVENTS_DATA;
 
   return (
     <section className="relative min-h-screen w-full py-24 px-6 bg-gradient-to-b from-[#0c0c1a] via-[#0f0f20] to-[#0c0c1a]">
@@ -299,20 +323,51 @@ export function MissionArcs() {
           </p>
 
           <h2 className="anime-title text-white mb-6">
-            Available Missions
+            {selectedArcFilter ? `${selectedArcFilter} Missions` : 'Available Missions'}
           </h2>
 
           <p className="anime-subtitle text-gray-400 max-w-2xl mx-auto">
-            Each event is a mission waiting for worthy slayers.
-            Choose your path and prove your skills.
+            {selectedArcFilter
+              ? `Explore missions from the ${selectedArcFilter} arc. Each mission is waiting for worthy participants.`
+              : 'Each event is a mission waiting for worthy slayers. Choose your path and prove your skills.'}
           </p>
+
+          {/* Clear Filter Button */}
+          {selectedArcFilter && (
+            <motion.button
+              className="mt-6 px-6 py-2 rounded-full flex items-center gap-2 mx-auto"
+              style={{
+                background: 'rgba(162, 155, 254, 0.2)',
+                border: '1px solid rgba(162, 155, 254, 0.5)',
+                color: '#a29bfe',
+              }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={clearFilter}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+            >
+              <FilterX size={16} />
+              <span>Show All Missions</span>
+            </motion.button>
+          )}
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {EVENTS_DATA.map((event) => (
+          {filteredEvents.map((event) => (
             <EventCard key={event.id} event={event} onClick={setSelectedEvent} />
           ))}
         </div>
+
+        {filteredEvents.length === 0 && (
+          <motion.div
+            className="text-center py-16"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+          >
+            <p className="text-gray-500">No missions available for this arc yet.</p>
+          </motion.div>
+        )}
       </div>
 
       <AnimatePresence>

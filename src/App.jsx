@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { BreathingProvider, useBreathing } from './context/BreathingContext';
+import { ArcFilterProvider } from './context/ArcFilterContext';
 import { useKonami } from './hooks/useKonami';
 
 import { SwordCursor } from './components/SwordCursor';
@@ -171,7 +172,9 @@ function AppContent() {
 function App() {
   return (
     <BreathingProvider>
-      <AppContent />
+      <ArcFilterProvider>
+        <AppContent />
+      </ArcFilterProvider>
     </BreathingProvider>
   );
 }

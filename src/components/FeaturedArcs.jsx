@@ -1,58 +1,64 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { useArcFilter } from '../context/ArcFilterContext';
 import { useBreathing } from '../context/BreathingContext';
-import { Sparkles, Sword, Crown, Music, ChevronRight, X } from 'lucide-react';
+import { Sparkles, Sword, Crown, Music, ChevronRight } from 'lucide-react';
 
 const FEATURED_ARCS = [
   {
     id: 1,
     title: 'Mobmania',
-    subtitle: 'Entertainment District Arc',
-    tagline: 'Where Legends Are Born',
-    description: 'Step into the Entertainment District. A grand theatrical showcase where performers become legends. Dance, drama, and cultural excellence await those brave enough to take the stage.',
-    highlights: ['Theatrical Performances', 'Dance Competitions', 'Cultural Exhibitions', 'Grand Finale'],
+    subtitle: 'The Opening Arc',
+    tagline: 'The Spark That Sets Everything in Motion',
+    description: 'Mobmania marks the beginning of the journey — where silence breaks into rhythm, and anticipation turns into celebration. The unveiling of the official fest poster stands as the mission banner, followed by the Flash Mob that transforms the ground into a battlefield of synchronized energy. This is not just an inauguration. This is the spark that sets everything in motion.',
+    highlights: ['Flash Mob', 'Poster Reveal', 'Opening Ceremony', 'Stage Performances'],
     color: '#e63946',
     icon: Sparkles,
-    episode: 'Season 2 - Episode 1',
+    episode: 'Arc 1',
   },
   {
     id: 2,
     title: 'Manthan',
-    subtitle: 'Swordsmith Village Arc',
-    tagline: 'Forge Your Legacy',
-    description: 'At the Swordsmith Village, innovation meets craftsmanship. Technical competitions, robotics challenges, and engineering marvels await those who seek to forge the future.',
-    highlights: ['Robotics Championship', 'Coding Wars', 'Innovation Showcase', 'Engineering Challenges'],
+    subtitle: 'The Tech War ARC',
+    tagline: 'Forge Your Legacy Through Trials of Fire',
+    description: 'In the depths of the Swordsmith Village, where innovation meets ancient craftsmanship, a new challenge awaits. Manthan is not merely a competition—it is a crucible where raw potential is forged into excellence through three trials of increasing difficulty.',
+    highlights: ['Chapter 1: Initiation', 'Chapter 2: Trials', 'Chapter 3: Final Confrontation', 'Multi-stage Campaign'],
     color: '#3498db',
     icon: Sword,
-    episode: 'Season 2 - Episode 2',
+    episode: 'Arc 2',
   },
   {
     id: 3,
     title: 'Udaan',
-    subtitle: 'Final Selection Arc',
+    subtitle: 'The Rising ARC',
     tagline: 'Prove Your Worth',
     description: 'The Final Selection awaits on Mount Sagiri. Only those with true strength and determination will survive the trials and earn their place among the Corps.',
     highlights: ['Athletic Events', 'Endurance Challenges', 'Team Sports', 'Final Trials'],
     color: '#f1c40f',
     icon: Crown,
-    episode: 'Season 1 - Episode 1',
+    episode: 'Arc 3',
   },
   {
     id: 4,
     title: 'Tarang',
-    subtitle: 'Festival Arc',
+    subtitle: 'The Celebration ARC',
     tagline: 'Celebrate Victory',
     description: 'The Festival Arc brings together all slayers for a celebration of culture, music, and unity. The ultimate culmination of your journey through the night.',
     highlights: ['Music Festival', 'Art Exhibitions', 'Cultural Parade', 'Closing Ceremony'],
     color: '#2ecc71',
     icon: Music,
-    episode: 'Season 3 - Episode 1',
+    episode: 'Arc 3',
   },
 ];
 
-function ArcCard({ arc, index, onClick }) {
+function ArcCard({ arc, index }) {
   const Icon = arc.icon;
+  const { filterByArc } = useArcFilter();
   const isEven = index % 2 === 0;
+
+  const handleClick = () => {
+    filterByArc(arc.title);
+  };
 
   return (
     <motion.div
@@ -66,7 +72,7 @@ function ArcCard({ arc, index, onClick }) {
     >
       <motion.div
         className="relative flex-1 cursor-pointer group"
-        onClick={() => onClick(arc)}
+        onClick={handleClick}
         whileHover={{ scale: 1.02 }}
       >
         <div
@@ -110,10 +116,11 @@ function ArcCard({ arc, index, onClick }) {
             </p>
 
             <motion.div
-              className="mt-4 flex items-center gap-2 text-sm text-gray-400"
+              className="mt-4 flex items-center gap-2 text-sm"
+              style={{ color: arc.color }}
               whileHover={{ x: 10 }}
             >
-              <span>View Arc Details</span>
+              <span>View Missions</span>
               <ChevronRight size={16} />
             </motion.div>
           </div>
@@ -173,120 +180,7 @@ function ArcCard({ arc, index, onClick }) {
   );
 }
 
-function ArcModal({ arc, onClose }) {
-  const Icon = arc.icon;
-
-  return (
-    <motion.div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-    >
-      <motion.div
-        className="absolute inset-0 bg-black/90 backdrop-blur-lg"
-        onClick={onClose}
-      />
-
-      <motion.div
-        className="relative max-w-3xl w-full max-h-[90vh] overflow-y-auto rounded-2xl"
-        style={{
-          background: 'linear-gradient(180deg, #1a1a2e, #0f0f1a)',
-          border: `2px solid ${arc.color}50`,
-        }}
-        initial={{ scale: 0.8, y: 50, opacity: 0 }}
-        animate={{ scale: 1, y: 0, opacity: 1 }}
-        exit={{ scale: 0.8, y: 50, opacity: 0 }}
-        transition={{ type: 'spring', damping: 25 }}
-      >
-        <div
-          className="h-48 relative overflow-hidden"
-          style={{
-            background: `linear-gradient(135deg, ${arc.color}40, transparent)`,
-          }}
-        >
-          <motion.div
-            className="absolute inset-0"
-            style={{
-              background: `radial-gradient(circle at center, ${arc.color}30, transparent)`,
-            }}
-            animate={{ scale: [1, 1.2, 1] }}
-            transition={{ duration: 4, repeat: Infinity }}
-          />
-
-          <button
-            onClick={onClose}
-            className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full flex items-center justify-center bg-black/50 hover:bg-black/70 transition-colors"
-          >
-            <X className="text-white" size={20} />
-          </button>
-
-          <div className="absolute inset-0 flex items-center justify-center">
-            <motion.div
-              className="w-32 h-32 rounded-full flex items-center justify-center"
-              style={{
-                background: `linear-gradient(135deg, ${arc.color}, ${arc.color}dd)`,
-                boxShadow: `0 0 60px ${arc.color}80`,
-              }}
-              animate={{ rotate: [0, 360] }}
-              transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-            >
-              <Icon size={56} className="text-white" />
-            </motion.div>
-          </div>
-        </div>
-
-        <div className="p-8">
-          <div className="text-center mb-8">
-            <p className="text-sm tracking-widest uppercase mb-2" style={{ color: arc.color }}>
-              {arc.subtitle}
-            </p>
-            <h2 className="text-4xl font-cinzel font-black text-white mb-2">{arc.title}</h2>
-            <p className="text-xl text-gray-300">{arc.tagline}</p>
-          </div>
-
-          <p className="text-gray-400 leading-relaxed mb-8 text-center max-w-2xl mx-auto">
-            {arc.description}
-          </p>
-
-          <div className="grid grid-cols-2 gap-4 mb-8">
-            {arc.highlights.map((highlight, i) => (
-              <motion.div
-                key={i}
-                className="p-4 rounded-lg text-center"
-                style={{
-                  background: `${arc.color}10`,
-                  border: `1px solid ${arc.color}30`,
-                }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 * i }}
-              >
-                <span className="text-white text-sm">{highlight}</span>
-              </motion.div>
-            ))}
-          </div>
-
-          <motion.button
-            className="w-full py-4 rounded-xl font-cinzel font-bold text-lg"
-            style={{
-              background: `linear-gradient(135deg, ${arc.color}, ${arc.color}dd)`,
-              color: 'white',
-            }}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            Enter This Arc
-          </motion.button>
-        </div>
-      </motion.div>
-    </motion.div>
-  );
-}
-
 export function FeaturedArcs() {
-  const [selectedArc, setSelectedArc] = useState(null);
-
   return (
     <section className="relative min-h-screen w-full py-24 px-6 bg-gradient-to-b from-[#0c0c1a] via-[#0a0a15] to-[#0c0c1a]">
       <div className="max-w-6xl mx-auto">
@@ -324,17 +218,10 @@ export function FeaturedArcs() {
               key={arc.id}
               arc={arc}
               index={index}
-              onClick={setSelectedArc}
             />
           ))}
         </div>
       </div>
-
-      <AnimatePresence>
-        {selectedArc && (
-          <ArcModal arc={selectedArc} onClose={() => setSelectedArc(null)} />
-        )}
-      </AnimatePresence>
     </section>
   );
 }
