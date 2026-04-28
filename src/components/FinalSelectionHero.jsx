@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { ElementalParticleScene } from './ElementalParticleScene';
 import logoBlack from '../asstes/logo_black.png';
+import logoWhite from '../asstes/logo_white.png';
 
 function WisteriaPetal({ delay, x }) {
   return (
@@ -171,7 +172,8 @@ export function FinalSelectionHero({ onEnter }) {
           {/* Competition Logo on Moon */}
           <div className="absolute inset-0 flex items-center justify-center p-4">
             <img
-              src={logoBlack}
+              // src={logoBlack}
+              src={logoWhite}
               /* alt="Competition Logo" */
               className="w-20 h-20 object-contain drop-shadow-lg"
             />
