@@ -59,7 +59,7 @@ export function Navigation() {
             className="text-xl font-cinzel font-bold text-white"
             whileHover={{ scale: 1.05 }}
           >
-            <span style={{ color: breathing.color || '#a29bfe' }}>Nichirin</span> Nexus
+            <span style={{ color: breathing.color || '#a29bfe' }}>Surotsav</span> 2026
           </motion.a>
 
           <div className="hidden md:flex items-center gap-6">

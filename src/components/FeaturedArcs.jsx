@@ -297,7 +297,7 @@ export function FeaturedArcs() {
           viewport={{ once: true }}
         >
           <p className="text-wisteria-light text-sm tracking-[0.5em] mb-4 uppercase">
-            ARC 5 — Featured Arcs
+            ARC 4 — Featured Arcs
           </p>
 
           <h2 className="anime-title text-white mb-6">

@@ -56,7 +56,7 @@ function Footer() {
           viewport={{ once: true }}
         >
           <h3 className="text-3xl font-cinzel font-bold text-white mb-4">
-            <span style={{ color: breathing.color || '#a29bfe' }}>Nichirin</span> Nexus
+            <span style={{ color: breathing.color || '#a29bfe' }}>Surotsav</span> 2026
           </h3>
           <p className="text-gray-500 text-sm">
             Enter the world of Demon Slayer. Live the anime experience.
@@ -102,7 +102,7 @@ function Footer() {
           transition={{ delay: 0.4 }}
         >
           <p className="text-gray-600 text-xs">
-            © 2024 Nichirin Nexus. Inspired by Demon Slayer: Kimetsu no Yaiba.
+            © Surotsav 2026. Inspired by Demon Slayer: Kimetsu no Yaiba.
             <br />
             A fan-made festival experience. Not affiliated with official productions.
           </p>
