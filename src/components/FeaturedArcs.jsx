@@ -62,7 +62,7 @@ function ArcCard({ arc, index }) {
 
   return (
     <motion.div
-      className={`relative flex flex-col lg:flex-row items-center gap-8 py-16 ${
+      className={`relative flex flex-col-reverse lg:flex-row items-center gap-8 py-16 ${
         isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'
       }`}
       initial={{ opacity: 0, x: isEven ? -100 : 100 }}
