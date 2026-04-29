@@ -156,9 +156,9 @@ function AppContent() {
           <MissionArcs />
         </section>
 
-        <section id="hashira">
+        {/* <section id="hashira">
           <HashiraRoster />
-        </section>
+        </section> */}
 
         <section id="guides">
           <SystemGuides />

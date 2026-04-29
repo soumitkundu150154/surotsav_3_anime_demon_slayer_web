@@ -3,9 +3,19 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Eye, EyeOff, Sparkles, Crown, Heart, X } from 'lucide-react';
 
 const GUIDES_DATA = {
-  title: 'The Guides Behind the System',
+  title: 'THE NAVIGATORS',
   subtitle: 'The Ubuyashiki Estate',
-  narrative: `While the Hashira lead the battles and the Corps defends humanity, there exists another layer to this experience — the architects of the journey itself.
+  narrative: `Beyond the surface of every arc and every mission, there exists a layer that quietly guides the journey — the structure beneath the experience.
+
+  Every path you take, every interaction you feel, every transition you follow has been carefully designed to move with clarity and purpose.
+
+  We do not lead the events.
+  We do not stand in the spotlight.
+
+  We build the journey you experience.
+
+  Not to control where you go -
+  but to ensure you never feel lost long the way.
 
 The system you navigate, the arcs that unfold, the missions that challenge — all were carefully designed to guide you through this world. Like Kagaya Ubuyashiki guiding the Corps with calm wisdom, and Amane supporting with unwavering grace, we are not the leaders of events, nor the heroes of battles. We are the silent hand that shapes the path, ensuring every interaction feels intentional, every transition seamless, every moment immersive.
 
@@ -227,7 +237,7 @@ export function SystemGuides() {
           </h2>
 
           <p className="anime-subtitle text-gray-400 max-w-2xl mx-auto">
-            The architects of the journey. Those who shaped the path you walk.
+            The ones who shape the path you walk.
           </p>
         </motion.div>
 
