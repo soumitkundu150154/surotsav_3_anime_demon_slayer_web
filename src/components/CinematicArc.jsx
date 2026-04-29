@@ -1,10 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
+import {
   ChevronRight, X, Users, Trophy, Clock, Target, Scroll,
   Sparkles, Sword, Crown, Music, Zap, Brain, Puzzle, Code, Mic, MessageSquare,
-  Car, Flag, Bot, Plane, Box, Film, Camera, Gamepad2, Star, Palette, User, Drama
+  Car, Flag, Bot, Plane, Box, Film, Camera, Gamepad2, Star, Palette, User, Drama,
+  Sparkle
 } from 'lucide-react';
+
+// Poster image mapping - maps mission titles to their poster image files
+const POSTER_MAP = {
+  'Treasure Hunt': 'treasure_hunt_event.jpeg',
+  'Tyre Changing': 'tyre_changing.jpeg',
+  'Hit the Wicket': 'Hit_the_wicket.jpeg',
+  'Target the Goal': 'Target_the_goal.jpeg',
+  'Line Follower': 'Line_follower.jpeg',
+  'Robo Race': 'robo_race.jpeg',
+  'UAV Race': 'uav_race.jpeg',
+  'BGMI Championship': 'BGMI.jpeg',
+  'Free Fire Clash': 'Free-Fire_event.jpeg',
+  'E-Football Masters': 'E-Football.jpeg',
+  'Model Making': 'Model_making_event.jpeg',
+  'Reels Making': 'reels.jpeg',
+  'Photography': 'photography.jpeg',
+  'Quiz': 'quize_event.jpeg',
+  'Debate': 'debate_event.jpeg',
+  'Puzzle': 'puzzel_event.jpeg',
+  'Debugging': 'debugging_event.jpeg',
+  'Flash Mob': 'flash_mob.jpeg',
+};
+
+function getMissionPoster(missionTitle) {
+  return POSTER_MAP[missionTitle] || null;
+}
 
 // Arc configurations with chapters and missions
 export const ARCS_DATA = {
@@ -51,104 +78,6 @@ This is not just an inauguration. This is the spark that sets everything in moti
             duration: '15 minutes',
             prize: 'Performance Spotlight + Certificate',
             icon: 'Zap',
-          },
-        ],
-      },
-      {
-        id: 'mob-ch2',
-        number: 2,
-        title: 'The Performance',
-        subtitle: 'Entertainment District Live',
-        description: 'Live performances that capture the essence of the Entertainment District.',
-        color: '#ff6b6b',
-        missionGroups: [
-          {
-            title: 'Stage Events',
-            color: '#ff6b6b',
-            missions: [
-              {
-                id: 'mob-m3',
-                title: 'Dance Battle',
-                description: 'Head-to-head dance competition where rhythm meets rivalry.',
-                details: 'Solo and group dance battles with multiple rounds. Judges score on technique, creativity, and crowd response.',
-                difficulty: 'Hard',
-                teamSize: 'Solo or 3-5 members',
-                duration: '2 hours',
-                prize: 'Trophy + Cash Prize',
-                icon: 'Zap',
-              },
-              {
-                id: 'mob-m4',
-                title: 'Singing Competition',
-                description: 'Voices that echo through the Entertainment District.',
-                details: 'Solo singing competition across genres. Preliminary and final rounds with live band accompaniment.',
-                difficulty: 'Medium',
-                teamSize: 'Individual',
-                duration: '3 hours',
-                prize: 'Recording Session + Mic',
-                icon: 'Mic',
-              },
-            ],
-          },
-          {
-            title: 'Cultural Showcase',
-            color: '#f1c40f',
-            missions: [
-              {
-                id: 'mob-m5',
-                title: 'Fashion Walk',
-                description: 'Strut the runway with style and confidence.',
-                details: 'Fashion show featuring themed costumes and traditional-modern fusion wear. Judged on presentation and creativity.',
-                difficulty: 'Medium',
-                teamSize: 'Individual',
-                duration: '2 hours',
-                prize: 'Fashion Voucher + Crown',
-                icon: 'User',
-              },
-              {
-                id: 'mob-m6',
-                title: 'Drama Performance',
-                description: 'Theatrical storytelling that captivates hearts.',
-                details: 'Stage plays and skits with prepared scripts. Judged on acting, direction, script, and overall impact.',
-                difficulty: 'Hard',
-                teamSize: '5-10 members',
-                duration: '45 min per team',
-                prize: 'Best Actor/Play Trophies',
-                icon: 'Theater',
-              },
-            ],
-          },
-        ],
-      },
-      {
-        id: 'mob-ch3',
-        number: 3,
-        title: 'The Grand Finale',
-        subtitle: 'Celebration of Champions',
-        description: 'The culmination where stars are born and legends made.',
-        color: '#c0392b',
-        missions: [
-          {
-            id: 'mob-m7',
-            title: 'Celebrity Performance',
-            description: 'Special guest performance that lights up the night.',
-            details: 'Professional artist performance to close the Mobmania arc with unforgettable moments.',
-            difficulty: 'Spectacle',
-            teamSize: 'Performance Group',
-            duration: '1 hour',
-            prize: 'Experience of a Lifetime',
-            icon: 'Star',
-          },
-          {
-            id: 'mob-m8',
-            title: 'Award Ceremony',
-            description: 'Honoring the champions of the Entertainment District.',
-            details: 'Felicitating winners across all Mobmania events with trophies, certificates, and prizes.',
-            difficulty: 'Ceremonial',
-            teamSize: 'All participants',
-            duration: '45 minutes',
-            prize: 'Trophies + Certificates',
-            icon: 'Trophy',
           },
         ],
       },
@@ -1112,12 +1041,211 @@ function MissionModal({ mission, accentColor, onClose }) {
             }}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
+            onClick={() => {
+              if (getMissionPoster(mission.title)) {
+                onClose();
+                // Small delay to let modal close before poster reveal
+                setTimeout(() => {
+                  window.dispatchEvent(new CustomEvent('showMissionPoster', {
+                    detail: { title: mission.title, accentColor }
+                  }));
+                }, 300);
+              }
+            }}
           >
             Accept Mission
           </motion.button>
         </div>
       </motion.div>
     </motion.div>
+  );
+}
+
+// Cinematic Poster Reveal Component
+function MissionPosterReveal() {
+  const [posterData, setPosterData] = useState(null);
+  const [showPoster, setShowPoster] = useState(false);
+  const [particles, setParticles] = useState([]);
+
+  useEffect(() => {
+    const handleShowPoster = (e) => {
+      const { title, accentColor } = e.detail;
+      const posterFile = getMissionPoster(title);
+      if (posterFile) {
+        setPosterData({ title, posterFile, accentColor });
+        setShowPoster(true);
+        // Generate sparkle particles
+        const newParticles = Array.from({ length: 20 }, (_, i) => ({
+          id: i,
+          x: Math.random() * 100,
+          y: Math.random() * 100,
+          delay: Math.random() * 1.5,
+          size: Math.random() * 6 + 2,
+        }));
+        setParticles(newParticles);
+      }
+    };
+
+    window.addEventListener('showMissionPoster', handleShowPoster);
+    return () => window.removeEventListener('showMissionPoster', handleShowPoster);
+  }, []);
+
+  const handleClose = () => {
+    setShowPoster(false);
+    setTimeout(() => setPosterData(null), 500);
+  };
+
+  if (!posterData) return null;
+
+  const posterUrl = new URL(`../asstes/${posterData.posterFile}`, import.meta.url).href;
+
+  return (
+    <AnimatePresence>
+      {showPoster && (
+        <motion.div
+          className="fixed inset-0 z-[60] flex items-center justify-center p-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          {/* Dark overlay with vignette */}
+          <motion.div
+            className="absolute inset-0 bg-black/95"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={handleClose}
+          />
+
+          {/* Ambient glow behind poster */}
+          <motion.div
+            className="absolute w-[600px] h-[600px] rounded-full blur-[120px]"
+            style={{ background: posterData.accentColor }}
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 0.3, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.5 }}
+            transition={{ duration: 1 }}
+          />
+
+          {/* Sparkle particles */}
+          {particles.map((p) => (
+            <motion.div
+              key={p.id}
+              className="absolute pointer-events-none"
+              style={{
+                left: `${p.x}%`,
+                top: `${p.y}%`,
+                width: p.size,
+                height: p.size,
+              }}
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{
+                opacity: [0, 1, 0],
+                scale: [0, 1.5, 0],
+                y: [0, -30, -60],
+              }}
+              transition={{
+                duration: 2,
+                delay: p.delay,
+                repeat: Infinity,
+                repeatDelay: Math.random() * 2,
+              }}
+            >
+              <Sparkle
+                size={p.size}
+                style={{ color: posterData.accentColor }}
+                className="fill-current"
+              />
+            </motion.div>
+          ))}
+
+          {/* Poster container */}
+          <motion.div
+            className="relative z-10 max-w-2xl w-full"
+            initial={{ scale: 0.3, rotateY: -30, opacity: 0 }}
+            animate={{ scale: 1, rotateY: 0, opacity: 1 }}
+            exit={{ scale: 0.3, rotateY: 30, opacity: 0 }}
+            transition={{
+              type: 'spring',
+              stiffness: 100,
+              damping: 15,
+              delay: 0.2,
+            }}
+          >
+            {/* Glow border */}
+            <motion.div
+              className="absolute -inset-2 rounded-2xl blur-md"
+              style={{ background: `linear-gradient(135deg, ${posterData.accentColor}, transparent, ${posterData.accentColor})` }}
+              animate={{
+                opacity: [0.5, 1, 0.5],
+              }}
+              transition={{ duration: 2, repeat: Infinity }}
+            />
+
+            {/* Poster frame */}
+            <motion.div
+              className="relative rounded-2xl overflow-hidden"
+              style={{
+                border: `2px solid ${posterData.accentColor}60`,
+                boxShadow: `0 0 80px ${posterData.accentColor}40`,
+              }}
+            >
+              {/* Corner decorations */}
+              <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 rounded-tl-2xl z-10" style={{ borderColor: posterData.accentColor }} />
+              <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 rounded-tr-2xl z-10" style={{ borderColor: posterData.accentColor }} />
+              <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 rounded-bl-2xl z-10" style={{ borderColor: posterData.accentColor }} />
+              <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 rounded-br-2xl z-10" style={{ borderColor: posterData.accentColor }} />
+
+              {/* Poster image */}
+              <motion.img
+                src={posterUrl}
+                alt={posterData.title}
+                className="w-full h-auto object-cover"
+                initial={{ opacity: 0, scale: 1.1 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+              />
+
+            </motion.div>
+
+            {/* Event title below poster */}
+            <motion.h3
+              className="text-center mt-6 text-2xl font-cinzel font-bold text-white"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8, duration: 0.5 }}
+            >
+              {posterData.title}
+            </motion.h3>
+
+            <motion.p
+              className="text-center mt-2 text-sm tracking-widest uppercase"
+              style={{ color: posterData.accentColor }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1, duration: 0.5 }}
+            >
+              Your challenge awaits
+            </motion.p>
+          </motion.div>
+
+          {/* Close button */}
+          <motion.button
+            className="absolute top-6 right-6 z-20 w-12 h-12 rounded-full flex items-center justify-center bg-white/10 hover:bg-white/20 transition-colors border border-white/20"
+            onClick={handleClose}
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0 }}
+            transition={{ delay: 2.2 }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            <X className="text-white" size={20} />
+          </motion.button>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
 
@@ -1205,6 +1333,9 @@ export function CinematicArc({ arcKey }) {
           ))}
         </div>
       </div>
+
+      {/* Global Poster Reveal Overlay */}
+      <MissionPosterReveal />
     </section>
   );
 }
