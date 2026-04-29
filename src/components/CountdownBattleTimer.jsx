@@ -96,8 +96,7 @@ export function CountdownBattleTimer() {
   });
 
   useEffect(() => {
-    const targetDate = new Date();
-    targetDate.setDate(targetDate.getDate() + 30);
+    const targetDate = new Date('2026-05-12T14:00:00+05:30');
 
     const updateTimer = () => {
       const now = new Date();
