@@ -71,7 +71,7 @@ function ArcCard({ arc, index }) {
       transition={{ duration: 0.8 }}
     >
       <motion.div
-        className="relative flex-1 cursor-pointer group"
+        className="relative w-full lg:flex-1 cursor-pointer group"
         onClick={handleClick}
         whileHover={{ scale: 1.02 }}
       >
@@ -139,7 +139,7 @@ function ArcCard({ arc, index }) {
       </motion.div>
 
       <motion.div
-        className="flex-1 text-center lg:text-left"
+        className="w-full lg:flex-1 text-center lg:text-left"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
