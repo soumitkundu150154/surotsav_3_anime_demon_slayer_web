@@ -25,7 +25,7 @@ We built the vessel. You bring it to life.`,
 const SYSTEM_GUIDES = [
   {
     id: 'ubuyashiki',
-    name: 'Kagaya Ubuyashiki',
+    name: 'Soumit Kundu',
     role: 'System Architect',
     title: 'Designed the structure, flow, and logic of the experience.',
     description: 'With the calm wisdom of the Corps leader, the system was architected to guide every user through their journey. Every arc, every chapter, every mission — structured with purpose and precision.',
