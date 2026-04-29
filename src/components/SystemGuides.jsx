@@ -36,7 +36,7 @@ const SYSTEM_GUIDES = [
   },
   {
     id: 'amane',
-    name: 'Amane Ubuyashiki',
+    name: 'Sayantani Dey',
     role: 'Experience Guide',
     title: 'Refined interactions, balance, and visual harmony of the system.',
     description: 'With graceful precision, every interaction was shaped to feel natural and immersive. The visual harmony, the smooth transitions, the balanced experience — all carefully composed.',
