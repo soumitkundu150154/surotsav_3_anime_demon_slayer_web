@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Eye, EyeOff, Sparkles, Crown, Heart, X } from 'lucide-react';
+import { Sparkles, Crown, Heart, X } from 'lucide-react';
 
 const GUIDES_DATA = {
   title: 'THE NAVIGATORS',
@@ -33,6 +33,7 @@ const SYSTEM_GUIDES = [
     color: '#a29bfe',
     icon: Crown,
     traits: ['Vision', 'Structure', 'Guidance'],
+    image: new URL('../asstes/Kagaya_ubuyashiki.jpeg', import.meta.url).href,
   },
   {
     id: 'amane',
@@ -44,77 +45,73 @@ const SYSTEM_GUIDES = [
     color: '#74b9ff',
     icon: Heart,
     traits: ['Harmony', 'Balance', 'Refinement'],
+    image: new URL('../asstes/sayantani_dey.jpeg', import.meta.url).href,
   },
 ];
 
 function GuideCard({ guide, onClick }) {
-  const Icon = guide.icon;
-
   return (
     <motion.div
       className="relative cursor-pointer"
       onClick={() => onClick(guide)}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
+      whileHover={{ scale: 1.03 }}
+      whileTap={{ scale: 0.97 }}
       initial={{ opacity: 0, scale: 0.8 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
     >
       <motion.div
-        className="relative aspect-square rounded-full overflow-hidden"
+        className="relative aspect-[3/4] rounded-2xl overflow-hidden"
         style={{
-          background: `linear-gradient(135deg, ${guide.color}15, transparent)`,
-          border: `2px solid ${guide.color}30`,
+          background: `linear-gradient(180deg, ${guide.color}10, transparent)`,
+          border: `1px solid ${guide.color}30`,
         }}
         whileHover={{
-          boxShadow: `0 0 60px ${guide.color}40`,
-          borderColor: `${guide.color}60`,
+          boxShadow: `0 0 60px ${guide.color}30`,
+          borderColor: `${guide.color}50`,
         }}
       >
-        {/* Inner glow */}
-        <div className="absolute inset-4 rounded-full flex items-center justify-center">
-          <motion.div
-            className="w-full h-full rounded-full flex items-center justify-center"
+        {/* Cinematic portrait image */}
+        <div className="absolute inset-0">
+          <img
+            src={guide.image}
+            alt={guide.name}
+            className="w-full h-full object-cover"
+          />
+          {/* Vignette overlay */}
+          <div
+            className="absolute inset-0"
             style={{
-              background: `radial-gradient(circle at center, ${guide.color}20, transparent)`,
+              background: `linear-gradient(to bottom, transparent 40%, ${guide.color}40 100%)`,
             }}
-            animate={{
-              rotate: [0, 360],
-            }}
-            transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
-          >
-            <Icon size={48} style={{ color: guide.color }} />
-          </motion.div>
+          />
         </div>
+
+        {/* Corner frame accents */}
+        <div className="absolute top-3 left-3 w-6 h-6 border-t border-l rounded-tl-lg" style={{ borderColor: guide.color }} />
+        <div className="absolute top-3 right-3 w-6 h-6 border-t border-r rounded-tr-lg" style={{ borderColor: guide.color }} />
+        <div className="absolute bottom-3 left-3 w-6 h-6 border-b border-l rounded-bl-lg" style={{ borderColor: guide.color }} />
+        <div className="absolute bottom-3 right-3 w-6 h-6 border-b border-r rounded-br-lg" style={{ borderColor: guide.color }} />
 
         {/* Bottom text overlay */}
         <motion.div
-          className="absolute bottom-0 left-0 right-0 p-4 text-center"
+          className="absolute bottom-0 left-0 right-0 p-5 text-center"
           style={{
-            background: `linear-gradient(to top, ${guide.color}30, transparent)`,
+            background: `linear-gradient(to top, rgba(0,0,0,0.9), transparent)`,
           }}
         >
-          <h3 className="font-cinzel font-bold text-white text-lg">{guide.name}</h3>
-          <p className="text-xs uppercase tracking-wider" style={{ color: guide.color }}>
+          <h3 className="font-cinzel font-bold text-white text-xl mb-1">{guide.name}</h3>
+          <p className="text-xs uppercase tracking-[0.2em]" style={{ color: guide.color }}>
             {guide.role}
           </p>
         </motion.div>
-
-        {/* Subtle ring animation */}
-        <motion.div
-          className="absolute inset-0 rounded-full border border-white/5"
-          animate={{ scale: [1, 1.05, 1], opacity: [0.3, 0.1, 0.3] }}
-          transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-        />
       </motion.div>
     </motion.div>
   );
 }
 
 function GuideModal({ guide, onClose }) {
-  const Icon = guide.icon;
-
   return (
     <motion.div
       className="fixed inset-0 z-50 flex items-center justify-center p-4"
@@ -124,37 +121,42 @@ function GuideModal({ guide, onClose }) {
     >
       {/* Backdrop */}
       <motion.div
-        className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/90 backdrop-blur-sm"
         onClick={onClose}
       />
 
       {/* Modal Card */}
       <motion.div
-        className="relative max-w-lg w-full rounded-2xl overflow-hidden"
+        className="relative max-w-md w-full rounded-2xl overflow-hidden"
         style={{
           background: 'linear-gradient(180deg, #1a1a2e, #0f0f1a)',
-          border: `2px solid ${guide.color}40`,
+          border: `1px solid ${guide.color}30`,
         }}
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.8, opacity: 0 }}
         transition={{ type: 'spring', damping: 25 }}
       >
-        {/* Header with gradient */}
-        <div
-          className="h-40 relative overflow-hidden"
-          style={{
-            background: `linear-gradient(135deg, ${guide.color}30, transparent)`,
-          }}
-        >
-          <motion.div
+        {/* Cinematic portrait header */}
+        <div className="relative h-80 overflow-hidden">
+          {/* Photo */}
+          <img
+            src={guide.image}
+            alt={guide.name}
+            className="w-full h-full object-cover"
+          />
+
+          {/* Vignette overlay */}
+          <div
             className="absolute inset-0"
             style={{
-              background: `radial-gradient(circle at center, ${guide.color}20, transparent)`,
+              background: `linear-gradient(to bottom, transparent 30%, ${guide.color}50, #1a1a2e)`,
             }}
-            animate={{ scale: [1, 1.2, 1] }}
-            transition={{ duration: 4, repeat: Infinity }}
           />
+
+          {/* Corner accents */}
+          <div className="absolute top-4 left-4 w-8 h-8 border-t border-l rounded-tl-lg" style={{ borderColor: guide.color }} />
+          <div className="absolute top-4 right-4 w-8 h-8 border-t border-r rounded-tr-lg" style={{ borderColor: guide.color }} />
 
           {/* Close button */}
           <button
@@ -164,20 +166,17 @@ function GuideModal({ guide, onClose }) {
             <X className="text-white" size={20} />
           </button>
 
-          {/* Center icon */}
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-28 h-28 rounded-full flex items-center justify-center"
+          {/* Glow line at bottom */}
+          <div
+            className="absolute bottom-0 left-0 right-0 h-px"
             style={{
-              background: `linear-gradient(135deg, ${guide.color}, ${guide.color}dd)`,
-              border: '4px solid #1a1a2e',
-              boxShadow: `0 0 40px ${guide.color}60`,
+              background: `linear-gradient(90deg, transparent, ${guide.color}, transparent)`,
             }}
-          >
-            <Icon size={44} className="text-white" />
-          </div>
+          />
         </div>
 
         {/* Content */}
-        <div className="pt-16 pb-8 px-8 text-center">
+        <div className="pt-6 pb-8 px-8 text-center">
           <h2 className="text-3xl font-cinzel font-black text-white mb-1">{guide.name}</h2>
           <p className="text-lg mb-1" style={{ color: guide.color }}>{guide.role}</p>
           <p className="text-gray-400 text-sm mb-6">{guide.title}</p>
