@@ -101,7 +101,7 @@ The forge is lit. The hammer awaits. Will you answer the call?`,
         title: 'Initiation',
         subtitle: 'The First Trial',
         description: 'Every legend begins with a first step. Prove your wit and determination.',
-        color: '#f39c12',
+        color: '#1b66c7',
         missions: [
           {
             id: 'man-m1',
@@ -122,11 +122,11 @@ The forge is lit. The hammer awaits. Will you answer the call?`,
         title: 'Trials',
         subtitle: 'The Gauntlet of Skill',
         description: 'Four trials await, each testing different aspects of your abilities.',
-        color: '#e74c3c',
+        color: '#1e6bd6',
         missionGroups: [
           {
             title: 'Combat Trials',
-            color: '#e74c3c',
+            color: '#1431e9',
             missions: [
               {
                 id: 'man-m2',
@@ -204,7 +204,7 @@ The forge is lit. The hammer awaits. Will you answer the call?`,
           },
           {
             title: 'Digital Arena',
-            color: '#9b59b6',
+            color: '#091c97',
             missions: [
               {
                 id: 'man-m8',
@@ -243,7 +243,7 @@ The forge is lit. The hammer awaits. Will you answer the call?`,
           },
           {
             title: 'Creative Trials',
-            color: '#2ecc71',
+            color: '#0938a7',
             missions: [
               {
                 id: 'man-m11',
@@ -288,7 +288,7 @@ The forge is lit. The hammer awaits. Will you answer the call?`,
         title: 'Final Confrontation',
         subtitle: 'The Ultimate Test',
         description: 'Four final challenges. Only the worthy shall prevail.',
-        color: '#9b59b6',
+        color: '#1b1297',
         missions: [
           {
             id: 'man-m14',
