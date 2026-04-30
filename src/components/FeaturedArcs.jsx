@@ -32,7 +32,7 @@ const FEATURED_ARCS = [
     title: 'Udaan',
     subtitle: 'The Rising ARC',
     tagline: 'Prove Your Worth',
-    details: 'A multi-stage selection process where participants showcase their talent, creativity, and presence. After qualifying a written MCQ round based on current affairs and general awareness, participants move on to performance and situational rounds that test confidence, thinking, and personality.',
+    description: 'A multi-stage selection process where participants showcase their talent, creativity, and presence. After qualifying a written MCQ round based on current affairs and general awareness, participants move on to performance and situational rounds that test confidence, thinking, and personality.',
     highlights: ['Freshers', 'Talent Hunt', 'Best Student', 'Final Trials'],
     color: '#f1c40f',
     icon: Crown,
