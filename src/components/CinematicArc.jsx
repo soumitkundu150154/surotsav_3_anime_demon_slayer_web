@@ -424,7 +424,7 @@ Tarang: {
   title: 'Tarang',
   subtitle: 'The Celebration ARC',
   tagline: 'Feel the Rhythm',
-  color: '#e74c3c',
+  color: '#2ecc71',
   iconName: 'Music',
   narrative: `As the journey reaches its peak, the Celebration ARC begins.
 
@@ -441,7 +441,7 @@ Lights rise. Music echoes. The stage is alive.`,
       title: 'The Opening Notes',
       subtitle: 'Live Music Experience',
       description: 'An evening that begins with powerful live performances.',
-      color: '#e74c3c',
+      color: '#27ae60',
       missions: [
         {
           id: 'tr-m1',
@@ -474,7 +474,7 @@ Lights rise. Music echoes. The stage is alive.`,
       title: 'The Spotlight',
       subtitle: 'Student Performances',
       description: 'Where creativity and talent take center stage.',
-      color: '#c0392b',
+      color: '#1abc9c',
       missions: [
         {
           id: 'tr-m3',
@@ -518,7 +518,7 @@ Lights rise. Music echoes. The stage is alive.`,
       title: 'The Finale',
       subtitle: 'DJ Night',
       description: 'An electrifying end to the celebration.',
-      color: '#922b21',
+      color: '#16a085',
       missions: [
         {
           id: 'tr-m6',
