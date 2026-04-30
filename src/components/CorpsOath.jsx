@@ -10,6 +10,10 @@ export function CorpsOath() {
 
   const handleTakeOath = () => {
     setIsSubmitted(true);
+    // Redirect to Google Form after animation
+    setTimeout(() => {
+      window.open('https://docs.google.com/forms/d/e/1FAIpQLSf9pqbG4vWppeFYsb6pky4W9CKSk62Kbiv9qHIXsI7R4Sy_hQ/viewform', '_blank');
+    }, 800);
   };
 
   return (
