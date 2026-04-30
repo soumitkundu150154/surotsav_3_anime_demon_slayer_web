@@ -288,7 +288,7 @@ The forge is lit. The hammer awaits. Will you answer the call?`,
         title: 'Final Confrontation',
         subtitle: 'The Ultimate Test',
         description: 'Four final challenges. Only the worthy shall prevail.',
-        color: '#133ec1ec',
+        color: '#2a5fc9dc',
         missions: [
           {
             id: 'man-m14',
