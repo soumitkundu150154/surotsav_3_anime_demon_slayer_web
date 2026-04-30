@@ -105,6 +105,25 @@ function GuideCard({ guide, onClick }) {
           <p className="text-xs uppercase tracking-[0.2em]" style={{ color: guide.color }}>
             {guide.role}
           </p>
+          {/* Portfolio button for Soumit Kundu */}
+          {guide.id === 'ubuyashiki' && (
+            <motion.a
+              href="https://soumit-old-port.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block mt-3 px-4 py-1.5 rounded-full text-xs font-medium"
+              style={{
+                background: `${guide.color}20`,
+                border: `1px solid ${guide.color}50`,
+                color: guide.color,
+              }}
+              whileHover={{ scale: 1.05, backgroundColor: `${guide.color}30` }}
+              whileTap={{ scale: 0.95 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              View Portfolio
+            </motion.a>
+          )}
         </motion.div>
       </motion.div>
     </motion.div>
