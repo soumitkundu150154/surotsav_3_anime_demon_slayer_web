@@ -474,7 +474,7 @@ Lights rise. Music echoes. The stage is alive.`,
       title: 'The Spotlight',
       subtitle: 'Student Performances',
       description: 'Where creativity and talent take center stage.',
-      color: '#1abc9c',
+      color: '#2ecc71',
       missions: [
         {
           id: 'tr-m3',
@@ -518,7 +518,7 @@ Lights rise. Music echoes. The stage is alive.`,
       title: 'The Finale',
       subtitle: 'DJ Night',
       description: 'An electrifying end to the celebration.',
-      color: '#16a085',
+      color: '#27ae60',
       missions: [
         {
           id: 'tr-m6',
