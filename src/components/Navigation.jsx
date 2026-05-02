@@ -7,8 +7,9 @@ const NAV_LINKS = [
   { label: 'Home', href: '#hero' },
   { label: 'Breathing', href: '#breathing' },
   { label: 'Countdown', href: '#countdown' },
-  { label: 'Missions', href: '#missions' },
   { label: 'Arcs', href: '#arcs' },
+  { label: 'Missions', href: '#missions' },
+  
   { label: 'Hashira', href: '#hashira' },
   { label: 'Oath', href: '#oath' },
 ];
