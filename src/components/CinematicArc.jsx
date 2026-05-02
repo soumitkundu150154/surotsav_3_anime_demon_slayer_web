@@ -134,15 +134,9 @@ The forge is lit. The hammer awaits. Will you answer the call?`,
                 description: 'Speed and precision under pressure. Change a tyre faster than your opponents.',
                 details: 'Teams compete to change a car tyre in the shortest time. Judged on speed, technique, and safety.',
                 difficulty: 'Medium',
-<<<<<<< HEAD
                 teamSize: '1 - 2 members',
                 duration: '5 min per team',
                 prize: 'Certificates',
-=======
-                teamSize: '2 members',
-                duration: '10 min per team',
-                prize: 'Cash Prize + Certificates',
->>>>>>> 1f40098cf0810c896c03cea80177e70aa29dd2f1
                 icon: 'Car',
               },
               {
@@ -153,7 +147,7 @@ The forge is lit. The hammer awaits. Will you answer the call?`,
                 difficulty: 'Easy',
                 teamSize: 'Individual',
                 duration: '15 min per round',
-                prize: 'Cash Prize + Certificates',
+                prize: 'Sports Gear',
                 icon: 'Target',
               },
               {
@@ -164,7 +158,7 @@ The forge is lit. The hammer awaits. Will you answer the call?`,
                 difficulty: 'Medium',
                 teamSize: 'Individual',
                 duration: '10 min per player',
-                prize: 'Cash Prize + Certificates',
+                prize: 'Football Equipment',
                 icon: 'Flag',
               },
             ],
@@ -181,7 +175,7 @@ The forge is lit. The hammer awaits. Will you answer the call?`,
                 difficulty: 'Hard',
                 teamSize: '2-3 members',
                 duration: '5 min per robot',
-                prize: 'Cash Prize + Certificates',
+                prize: 'Electronics Kit',
                 icon: 'Bot',
               },
               {
@@ -190,15 +184,9 @@ The forge is lit. The hammer awaits. Will you answer the call?`,
                 description: 'Speed is everything. Race your robot through the obstacle course.',
                 details: 'Remote-controlled robots race through a challenging obstacle course. Speed and control determine the winner.',
                 difficulty: 'Medium',
-<<<<<<< HEAD
                 teamSize: 'Maximum 3 members',
                 duration: 'Time taken by the Robo of each team to complete the race ',
                 prize: 'Certificates + Exciting Rewards',
-=======
-                teamSize: '2 members',
-                duration: '3 min per race',
-                prize: 'Cash Prize + Certificates',
->>>>>>> 1f40098cf0810c896c03cea80177e70aa29dd2f1
                 icon: 'Zap',
               },
               {
@@ -209,7 +197,7 @@ The forge is lit. The hammer awaits. Will you answer the call?`,
                 difficulty: 'Hard',
                 teamSize: '2 members (1 pilot, 1 spotter)',
                 duration: '5 min per drone',
-                prize: 'Cash Prize + Certificates',
+                prize: 'Drone Parts',
                 icon: 'Plane',
               },
             ],
@@ -226,7 +214,7 @@ The forge is lit. The hammer awaits. Will you answer the call?`,
                 difficulty: 'Competitive',
                 teamSize: '4 members',
                 duration: '30 min per match',
-                prize: 'Cash Prize + Certificate',
+                prize: 'Gaming Peripherals + Cash',
                 icon: 'Gamepad2',
               },
               {
@@ -237,7 +225,7 @@ The forge is lit. The hammer awaits. Will you answer the call?`,
                 difficulty: 'Competitive',
                 teamSize: '4 members',
                 duration: '15 min per match',
-                prize: 'Cash Prize + Certificate',
+                prize: 'Gaming Peripherals',
                 icon: 'Zap',
               },
               {
@@ -248,7 +236,7 @@ The forge is lit. The hammer awaits. Will you answer the call?`,
                 difficulty: 'Medium',
                 teamSize: 'Individual',
                 duration: '15 min per match',
-                prize: 'Cash Prize + Certificates',
+                prize: 'Gaming Controller',
                 icon: 'Trophy',
               },
             ],
@@ -263,15 +251,9 @@ The forge is lit. The hammer awaits. Will you answer the call?`,
                 description: 'Build miniature worlds. Craft detailed models from imagination.',
                 details: 'Create detailed scale models on given themes. Judged on creativity, detail, and presentation.',
                 difficulty: 'Medium',
-<<<<<<< HEAD
                 teamSize: '1-4 members',
                 duration: '5 + 3 minutes per team',
                 prize: 'Certificates + Rewards',
-=======
-                teamSize: '2-3 members',
-                duration: '4 hours',
-                prize: 'Cash Prize + Certificates',
->>>>>>> 1f40098cf0810c896c03cea80177e70aa29dd2f1
                 icon: 'Box',
               },
               {
@@ -282,11 +264,7 @@ The forge is lit. The hammer awaits. Will you answer the call?`,
                 difficulty: 'Easy',
                 teamSize: '2-4 members',
                 duration: '2 hours',
-<<<<<<< HEAD
                 prize: 'Cerrtificates',
-=======
-                prize: 'Cash Prize + Certificates',
->>>>>>> 1f40098cf0810c896c03cea80177e70aa29dd2f1
                 icon: 'Film',
               },
               {
@@ -297,11 +275,7 @@ The forge is lit. The hammer awaits. Will you answer the call?`,
                 difficulty: 'Medium',
                 teamSize: 'Individual',
                 duration: '3 hours',
-<<<<<<< HEAD
                 prize: 'Certificates + Exciting Rewards',
-=======
-                prize: 'Cash Prize + Certificates',
->>>>>>> 1f40098cf0810c896c03cea80177e70aa29dd2f1
                 icon: 'Camera',
               },
             ],
@@ -314,11 +288,7 @@ The forge is lit. The hammer awaits. Will you answer the call?`,
         title: 'Final Confrontation',
         subtitle: 'The Ultimate Test',
         description: 'Four final challenges. Only the worthy shall prevail.',
-<<<<<<< HEAD
         color: '#1558dedc',
-=======
-        color: '#0938a7',
->>>>>>> 1f40098cf0810c896c03cea80177e70aa29dd2f1
         missions: [
           {
             id: 'man-m14',
@@ -327,13 +297,8 @@ The forge is lit. The hammer awaits. Will you answer the call?`,
             details: 'General knowledge quiz covering tech, science, current affairs, and pop culture. Fastest correct answers win.',
             difficulty: 'Hard',
             teamSize: '2 members',
-<<<<<<< HEAD
             duration: '10 - 15 seconds per question',
             prize: 'Certificates + Exciting Rewards to be revealed on spot',
-=======
-            duration: '45 minutes',
-            prize: 'Cash Prize + Certificates',
->>>>>>> 1f40098cf0810c896c03cea80177e70aa29dd2f1
             icon: 'Brain',
           },
           {
@@ -343,13 +308,8 @@ The forge is lit. The hammer awaits. Will you answer the call?`,
             details: 'Oxford style debate on tech and societal topics. Judged on argument quality, rebuttals, and presentation.',
             difficulty: 'Hard',
             teamSize: '2 members',
-<<<<<<< HEAD
             duration: '3 + 1 (Rebuttal) Minutes per Speaker',
             prize: 'Cerificates + Exciting Rewards',
-=======
-            duration: '30 min per debate',
-            prize: 'Cash Prize + Certificates',
->>>>>>> 1f40098cf0810c896c03cea80177e70aa29dd2f1
             icon: 'MessageSquare',
           },
           {
@@ -358,15 +318,9 @@ The forge is lit. The hammer awaits. Will you answer the call?`,
             description: 'Every puzzle has a solution. Find it before time runs out.',
             details: 'Solve intricate puzzles under time pressure. Test your logical thinking and problem-solving skills.',
             difficulty: 'Hard',
-<<<<<<< HEAD
             teamSize: 'Individual',
             duration: 'Each round has a fixed time limit',
             prize: 'Certificates + Exciting Rewards',
-=======
-            teamSize: '4 members',
-            duration: '1 hour',
-            prize: 'Cash Prize + Certificates',
->>>>>>> 1f40098cf0810c896c03cea80177e70aa29dd2f1
             icon: 'Puzzle',
           },
           {
@@ -375,15 +329,9 @@ The forge is lit. The hammer awaits. Will you answer the call?`,
             description: 'Find the bugs. Fix the code. Save the system.',
             details: 'Code debugging challenge with intentionally buggy programs. Find and fix errors in minimal time.',
             difficulty: 'Hard',
-<<<<<<< HEAD
             teamSize: 'Individual',
             duration: '60 minutes',
             prize: 'Certificates + Exciting Rewards (as per the decision of the organisers)',
-=======
-            teamSize: '2 members',
-            duration: '45 minutes',
-            prize: 'Cash Prize + Certificates',
->>>>>>> 1f40098cf0810c896c03cea80177e70aa29dd2f1
             icon: 'Code',
           },
         ],
