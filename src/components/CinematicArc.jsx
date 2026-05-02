@@ -519,7 +519,7 @@ Lights rise. Music echoes. The stage is alive.`,
           duration: 'Varies',
           prize: '—',
           icon: 'Sparkles',
-        }
+        },
       ],
     },
 
