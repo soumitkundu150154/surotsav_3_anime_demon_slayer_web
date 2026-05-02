@@ -34,6 +34,7 @@ const SYSTEM_GUIDES = [
     icon: Crown,
     traits: ['Vision', 'Structure', 'Guidance'],
     image: new URL('../asstes/Kagaya_ubuyashiki.jpeg', import.meta.url).href,
+    portfolio: 'https://soumit-old-port.vercel.app/',
   },
   {
     id: 'amane',
@@ -46,6 +47,7 @@ const SYSTEM_GUIDES = [
     icon: Heart,
     traits: ['Harmony', 'Balance', 'Refinement'],
     image: new URL('../asstes/sayantani_dey.jpeg', import.meta.url).href,
+    portfolio: 'https://sayantani-portfolio.vercel.app/',
   },
 ];
 
@@ -106,24 +108,24 @@ function GuideCard({ guide, onClick }) {
             {guide.role}
           </p>
           {/* Portfolio button for Soumit Kundu */}
-          {guide.id === 'ubuyashiki' && (
-            <motion.a
-              href="https://soumit-old-port.vercel.app/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block mt-3 px-4 py-1.5 rounded-full text-xs font-medium"
-              style={{
-                background: `${guide.color}20`,
-                border: `1px solid ${guide.color}50`,
-                color: guide.color,
-              }}
-              whileHover={{ scale: 1.05, backgroundColor: `${guide.color}30` }}
-              whileTap={{ scale: 0.95 }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              View Portfolio
-            </motion.a>
-          )}
+          {guide.portfolio && (
+  <motion.a
+    href={guide.portfolio}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-block mt-3 px-4 py-1.5 rounded-full text-xs font-medium"
+    style={{
+      background: `${guide.color}20`,
+      border: `1px solid ${guide.color}50`,
+      color: guide.color,
+    }}
+    whileHover={{ scale: 1.05, backgroundColor: `${guide.color}30` }}
+    whileTap={{ scale: 0.95 }}
+    onClick={(e) => e.stopPropagation()}
+  >
+    View Portfolio
+  </motion.a>
+)}
         </motion.div>
       </motion.div>
     </motion.div>
