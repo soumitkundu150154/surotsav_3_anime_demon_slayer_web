@@ -103,7 +103,7 @@ function BreathingRings({ breathingType, isInfinityCastle }) {
 
   const ringColor = useMemo(() => {
     const colorMap = {
-      none: '#ffffff',
+      none: '#7e5ecf',
       flame: '#ff4757',
       water: '#74b9ff',
       thunder: '#ffeaa7',
