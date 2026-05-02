@@ -532,7 +532,7 @@ Lights rise. Music echoes. The stage is alive.`,
       color: '#27ae60',
       missions: [
         {
-          id: 'tr-m6',
+          id: 'tr-m7',
           title: 'DJ Night',
           description: 'High-energy beats that bring everyone together.',
           details: 'As the night reaches its peak, the DJ takes over with electrifying music, turning the fest into a vibrant celebration of rhythm and energy.',
