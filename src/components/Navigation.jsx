@@ -9,8 +9,7 @@ const NAV_LINKS = [
   { label: 'Countdown', href: '#countdown' },
   { label: 'Arcs', href: '#arcs' },
   { label: 'Missions', href: '#missions' },
-  
-  { label: 'Hashira', href: '#hashira' },
+  { label: 'Navigators', href: '#guides' },
   { label: 'Oath', href: '#oath' },
 ];
 
