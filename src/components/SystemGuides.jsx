@@ -34,11 +34,12 @@ const SYSTEM_GUIDES = [
     icon: Crown,
     traits: ['Vision', 'Structure', 'Guidance'],
     image: new URL('../asstes/Kagaya_ubuyashiki.jpeg', import.meta.url).href,
+    portfolio: 'https://soumit-old-port.vercel.app/',
   },
   {
     id: 'amane',
     name: 'Sayantani Dey',
-    role: 'Experience Guide',
+    role: 'Interface Designer',
     title: 'Refined interactions, balance, and visual harmony of the system.',
     description: 'With graceful precision, every interaction was shaped to feel natural and immersive. The visual harmony, the smooth transitions, the balanced experience — all carefully composed.',
     quote: 'Balance is not found, it is created.',
@@ -46,6 +47,7 @@ const SYSTEM_GUIDES = [
     icon: Heart,
     traits: ['Harmony', 'Balance', 'Refinement'],
     image: new URL('../asstes/sayantani_dey.jpeg', import.meta.url).href,
+    portfolio: 'https://sayantani-portfolio.vercel.app/',
   },
 ];
 
@@ -105,6 +107,25 @@ function GuideCard({ guide, onClick }) {
           <p className="text-xs uppercase tracking-[0.2em]" style={{ color: guide.color }}>
             {guide.role}
           </p>
+          {/* Portfolio button for Soumit Kundu */}
+          {guide.portfolio && (
+  <motion.a
+    href={guide.portfolio}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-block mt-3 px-4 py-1.5 rounded-full text-xs font-medium"
+    style={{
+      background: `${guide.color}20`,
+      border: `1px solid ${guide.color}50`,
+      color: guide.color,
+    }}
+    whileHover={{ scale: 1.05, backgroundColor: `${guide.color}30` }}
+    whileTap={{ scale: 0.95 }}
+    onClick={(e) => e.stopPropagation()}
+  >
+    View Porfile
+  </motion.a>
+)}
         </motion.div>
       </motion.div>
     </motion.div>
