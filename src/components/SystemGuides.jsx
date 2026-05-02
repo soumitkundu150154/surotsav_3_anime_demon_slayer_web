@@ -39,7 +39,7 @@ const SYSTEM_GUIDES = [
   {
     id: 'amane',
     name: 'Sayantani Dey',
-    role: 'Experience Guide',
+    role: 'Interface Designer',
     title: 'Refined interactions, balance, and visual harmony of the system.',
     description: 'With graceful precision, every interaction was shaped to feel natural and immersive. The visual harmony, the smooth transitions, the balanced experience — all carefully composed.',
     quote: 'Balance is not found, it is created.',
