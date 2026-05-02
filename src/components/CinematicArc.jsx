@@ -70,7 +70,7 @@ This is not just an inauguration. This is the spark that sets everything in moti
           },
           {
             id: 'mob-m2',
-            title: 'Flash Mob',
+            title: 'Flash Mob ',
             description: 'The ground transforms into a battlefield of synchronized energy. Performers move as one, creating a spectacle of rhythm and motion.',
             details: 'An energetic dance performance where participants move in perfect synchronization. This is the spark that sets everything in motion — a burst of collective energy that transforms silence into celebration.',
             difficulty: 'Medium',
@@ -338,13 +338,13 @@ The forge is lit. The hammer awaits. Will you answer the call?`,
       },
     ],
   },
-Udaan: {
-  title: 'Udaan',
-  subtitle: 'The Rising ARC',
-  tagline: 'Prove Your Presence',
-  color: '#f1c40f',
-  iconName: 'Crown',
-  narrative: `Every journey begins with a moment of courage. The Rising ARC is where new faces step forward to be seen, heard, and remembered.
+  Udaan: {
+    title: 'Udaan',
+    subtitle: 'The Rising ARC',
+    tagline: 'Prove Your Presence',
+    color: '#f1c40f',
+    iconName: 'Crown',
+    narrative: `Every journey begins with a moment of courage. The Rising ARC is where new faces step forward to be seen, heard, and remembered.
 
 Udaan is not just a welcome—it is a journey of expression, confidence, and identity. Through a series of carefully designed rounds, participants reveal their awareness, creativity, and presence.
 
@@ -352,81 +352,81 @@ From the first step to the final spotlight, only those who truly stand out will 
 
 The stage is set. The spotlight awaits. Will you claim your place?`,
 
-  chapters: [
-    {
-      id: 'ud-ch1',
-      number: 1,
-      title: 'The First Step',
-      subtitle: 'The Screening Round',
-      description: 'An online MCQ round testing awareness, thinking, and presence of mind.',
-      color: '#f39c12',
-      missions: [
-        {
-          id: 'ud-m1',
-          title: 'Online MCQ Round',
-          description: 'A test of awareness, logic, and quick thinking.',
-          details: 'Participants take an online MCQ test based on current affairs, general knowledge, and basic aptitude. Only those who qualify move forward to the next stage.',
-          difficulty: 'Elimination Round',
-          teamSize: 'Individual',
-          duration: '30-45 minutes',
-          prize: 'Qualification to next round',
-          icon: 'Zap',
-        },
-      ],
-    },
+    chapters: [
+      {
+        id: 'ud-ch1',
+        number: 1,
+        title: 'The First Step',
+        subtitle: 'The Screening Round',
+        description: 'An online MCQ round testing awareness, thinking, and presence of mind.',
+        color: '#f39c12',
+        missions: [
+          {
+            id: 'ud-m1',
+            title: 'Online MCQ Round',
+            description: 'A test of awareness, logic, and quick thinking.',
+            details: 'Participants take an online MCQ test based on current affairs, general knowledge, and basic aptitude. Only those who qualify move forward to the next stage.',
+            difficulty: 'Elimination Round',
+            teamSize: 'Individual',
+            duration: '30-45 minutes',
+            prize: 'Qualification to next round',
+            icon: 'Zap',
+          },
+        ],
+      },
 
-    {
-      id: 'ud-ch2',
-      number: 2,
-      title: 'The Spotlight',
-      subtitle: 'Talent & Expression',
-      description: 'A stage to showcase individuality through performance and creativity.',
-      color: '#f1c40f',
-      missions: [
-        {
-          id: 'ud-m2',
-          title: 'Cultural Performance Round',
-          description: 'Express yourself through talent, creativity, and confidence.',
-          details: 'Qualified participants perform on stage through dance, music, acting, or any creative act. This round evaluates stage presence, originality, and expression.',
-          difficulty: 'Creative',
-          teamSize: 'Individual',
-          duration: '3-5 minutes per participant',
-          prize: 'Qualification to final round',
-          icon: 'Target',
-        },
-      ],
-    },
+      {
+        id: 'ud-ch2',
+        number: 2,
+        title: 'The Spotlight',
+        subtitle: 'Talent & Expression',
+        description: 'A stage to showcase individuality through performance and creativity.',
+        color: '#f1c40f',
+        missions: [
+          {
+            id: 'ud-m2',
+            title: 'Cultural Performance Round',
+            description: 'Express yourself through talent, creativity, and confidence.',
+            details: 'Qualified participants perform on stage through dance, music, acting, or any creative act. This round evaluates stage presence, originality, and expression.',
+            difficulty: 'Creative',
+            teamSize: 'Individual',
+            duration: '3-5 minutes per participant',
+            prize: 'Qualification to final round',
+            icon: 'Target',
+          },
+        ],
+      },
 
-    {
-      id: 'ud-ch3',
-      number: 3,
-      title: 'The Final Stand',
-      subtitle: 'Judgment & Presence',
-      description: 'The ultimate test of confidence, clarity, and personality.',
-      color: '#d68910',
-      missions: [
-        {
-          id: 'ud-m3',
-          title: 'Final Q&A Round',
-          description: 'Where words define presence and personality.',
-          details: 'Finalists face a panel of judges in a Q&A session based on situational and general questions. Confidence, clarity of thought, and composure determine the winners.',
-          difficulty: 'Final Round',
-          teamSize: 'Individual',
-          duration: '5-10 minutes per finalist',
-          prize: 'Mr. Fresher & Miss Fresher Titles',
-          icon: 'Trophy',
-        },
-      ],
-    },
-  ],
-},
-Tarang: {
-  title: 'Tarang',
-  subtitle: 'The Celebration ARC',
-  tagline: 'Feel the Rhythm',
-  color: '#2ecc71',
-  iconName: 'Music',
-  narrative: `As the journey reaches its peak, the Celebration ARC begins.
+      {
+        id: 'ud-ch3',
+        number: 3,
+        title: 'The Final Stand',
+        subtitle: 'Judgment & Presence',
+        description: 'The ultimate test of confidence, clarity, and personality.',
+        color: '#d68910',
+        missions: [
+          {
+            id: 'ud-m3',
+            title: 'Final Q&A Round',
+            description: 'Where words define presence and personality.',
+            details: 'Finalists face a panel of judges in a Q&A session based on situational and general questions. Confidence, clarity of thought, and composure determine the winners.',
+            difficulty: 'Final Round',
+            teamSize: 'Individual',
+            duration: '5-10 minutes per finalist',
+            prize: 'Mr. Fresher & Miss Fresher Titles',
+            icon: 'Trophy',
+          },
+        ],
+      },
+    ],
+  },
+  Tarang: {
+    title: 'Tarang',
+    subtitle: 'The Celebration ARC',
+    tagline: 'Feel the Rhythm',
+    color: '#2ecc71',
+    iconName: 'Music',
+    narrative: `As the journey reaches its peak, the Celebration ARC begins.
 
 Tarang is where energy, creativity, and expression come alive on one stage. It is not about competition—it is about experience, rhythm, and unforgettable moments shared together.
 
@@ -434,118 +434,118 @@ From soulful melodies to electrifying beats, the night unfolds as a vibrant cele
 
 Lights rise. Music echoes. The stage is alive.`,
 
-  chapters: [
-    {
-      id: 'tr-ch1',
-      number: 1,
-      title: 'The Opening Notes',
-      subtitle: 'Live Music Experience',
-      description: 'An evening that begins with powerful live performances.',
-      color: '#27ae60',
-      missions: [
-        {
-          id: 'tr-m1',
-          title: 'Biswarup Live',
-          description: 'A soulful live music performance to set the tone for the night.',
-          details: 'Experience a captivating live performance by Biswarup (Indian Idol), bringing melody, emotion, and energy to the stage.',
-          difficulty: 'Experience',
-          teamSize: 'Audience Event',
-          duration: 'Live Performance',
-          prize: '—',
-          icon: 'Music',
-        },
-        {
-          id: 'tr-m2',
-          title: 'Tushar Joshi Live',
-          description: 'A high-energy musical experience with electrifying vocals.',
-          details: 'Witness an unforgettable live performance by Tushar Joshi, filling the stage with powerful vocals and dynamic presence.',
-          difficulty: 'Experience',
-          teamSize: 'Audience Event',
-          duration: 'Live Performance',
-          prize: '—',
-          icon: 'Mic',
-        },
-      ],
-    },
+    chapters: [
+      {
+        id: 'tr-ch1',
+        number: 1,
+        title: 'The Opening Notes',
+        subtitle: 'Live Music Experience',
+        description: 'An evening that begins with powerful live performances.',
+        color: '#27ae60',
+        missions: [
+          {
+            id: 'tr-m1',
+            title: 'Biswarup Live',
+            description: 'A soulful live music performance to set the tone for the night.',
+            details: 'Experience a captivating live performance by Biswarup (Indian Idol), bringing melody, emotion, and energy to the stage.',
+            difficulty: 'Experience',
+            teamSize: 'Audience Event',
+            duration: 'Live Performance',
+            prize: '—',
+            icon: 'Music',
+          },
+          {
+            id: 'tr-m2',
+            title: 'Tushar Joshi Live',
+            description: 'A high-energy musical experience with electrifying vocals.',
+            details: 'Witness an unforgettable live performance by Tushar Joshi, filling the stage with powerful vocals and dynamic presence.',
+            difficulty: 'Experience',
+            teamSize: 'Audience Event',
+            duration: 'Live Performance',
+            prize: '—',
+            icon: 'Mic',
+          },
+        ],
+      },
 
-    {
-      id: 'tr-ch2',
-      number: 2,
-      title: 'The Spotlight',
-      subtitle: 'Student Performances',
-      description: 'Where creativity and talent take center stage.',
-      color: '#2ecc71',
-      missions: [
-        {
-          id: 'tr-m3',
-          title: 'Dance Performances',
-          description: 'Energy, rhythm, and expression through movement.',
-          details: 'Students showcase dynamic dance performances across various styles, bringing life and vibrance to the stage.',
-          difficulty: 'Showcase',
-          teamSize: 'Solo & Group',
-          duration: 'Varies',
-          prize: '—',
-          icon: 'Zap',
-        },
-        {
-          id: 'tr-m4',
-          title: 'Music & Singing',
-          description: 'Melodies that resonate with the crowd.',
-          details: 'From solo vocals to group performances, students present their musical talent through song and sound.',
-          difficulty: 'Showcase',
-          teamSize: 'Solo & Group',
-          duration: 'Varies',
-          prize: '—',
-          icon: 'Music',
-        },
-        {
-          id: 'tr-m5',
-          title: 'Drama & Acts',
-          description: 'Stories brought to life on stage.',
-          details: 'Engaging dramatic performances and theatrical acts that captivate and entertain the audience.',
-          difficulty: 'Showcase',
-          teamSize: 'Group',
-          duration: 'Varies',
-          prize: '—',
-          icon: 'Theater',
-        },
-        {
-          id: 'tr-m6',
-          title: 'Fashion Show',
-          description: 'Style, confidence, and expression take the spotlight.',
-          details: 'A high-energy runway showcase featuring themed outfits, creative styling, and confident walks. Participants bring fashion to life through attitude, expression, and stage presence.',
-          difficulty: 'Showcase',
-          teamSize: 'Solo & Group',
-          duration: 'Varies',
-          prize: '—',
-          icon: 'Sparkles',
-        },
-      ],
-    },
+      {
+        id: 'tr-ch2',
+        number: 2,
+        title: 'The Spotlight',
+        subtitle: 'Student Performances',
+        description: 'Where creativity and talent take center stage.',
+        color: '#2ecc71',
+        missions: [
+          {
+            id: 'tr-m3',
+            title: 'Dance Performances',
+            description: 'Energy, rhythm, and expression through movement.',
+            details: 'Students showcase dynamic dance performances across various styles, bringing life and vibrance to the stage.',
+            difficulty: 'Showcase',
+            teamSize: 'Solo & Group',
+            duration: 'Varies',
+            prize: '—',
+            icon: 'Zap',
+          },
+          {
+            id: 'tr-m4',
+            title: 'Music & Singing',
+            description: 'Melodies that resonate with the crowd.',
+            details: 'From solo vocals to group performances, students present their musical talent through song and sound.',
+            difficulty: 'Showcase',
+            teamSize: 'Solo & Group',
+            duration: 'Varies',
+            prize: '—',
+            icon: 'Music',
+          },
+          {
+            id: 'tr-m5',
+            title: 'Drama & Acts',
+            description: 'Stories brought to life on stage.',
+            details: 'Engaging dramatic performances and theatrical acts that captivate and entertain the audience.',
+            difficulty: 'Showcase',
+            teamSize: 'Group',
+            duration: 'Varies',
+            prize: '—',
+            icon: 'Theater',
+          },
+          {
+            id: 'tr-m6',
+            title: 'Fashion Show',
+            description: 'Style, confidence, and expression take the spotlight.',
+            details: 'A high-energy runway showcase featuring themed outfits, creative styling, and confident walks. Participants bring fashion to life through attitude, expression, and stage presence.',
+            difficulty: 'Showcase',
+            teamSize: 'Solo & Group',
+            duration: 'Varies',
+            prize: '—',
+            icon: 'Sparkles',
+          },
+        ],
+      },
 
-    {
-      id: 'tr-ch3',
-      number: 3,
-      title: 'The Finale',
-      subtitle: 'DJ Night',
-      description: 'An electrifying end to the celebration.',
-      color: '#27ae60',
-      missions: [
-        {
-          id: 'tr-m7',
-          title: 'DJ Night',
-          description: 'High-energy beats that bring everyone together.',
-          details: 'As the night reaches its peak, the DJ takes over with electrifying music, turning the fest into a vibrant celebration of rhythm and energy.',
-          difficulty: 'Experience',
-          teamSize: 'Open to All',
-          duration: 'Till Late Night',
-          prize: 'Memories',
-          icon: 'Music',
-        },
-      ],
-    },
-  ],
-}
+      {
+        id: 'tr-ch3',
+        number: 3,
+        title: 'The Finale',
+        subtitle: 'DJ Night',
+        description: 'An electrifying end to the celebration.',
+        color: '#27ae60',
+        missions: [
+          {
+            id: 'tr-m7',
+            title: 'DJ Night',
+            description: 'High-energy beats that bring everyone together.',
+            details: 'As the night reaches its peak, the DJ takes over with electrifying music, turning the fest into a vibrant celebration of rhythm and energy.',
+            difficulty: 'Experience',
+            teamSize: 'Open to All',
+            duration: 'Till Late Night',
+            prize: 'Memories',
+            icon: 'Music',
+          },
+        ],
+      },
+    ],
+  }
 };
 
 // Icon mapping - using imported components
@@ -557,7 +557,7 @@ const ICONS = {
 
 function ChapterCard({ chapter, isExpanded, onToggle, arcColor }) {
   const Icon = ICONS[chapter.iconName] || Scroll;
-  
+
   return (
     <motion.div
       className="relative mb-8"
@@ -583,7 +583,7 @@ function ChapterCard({ chapter, isExpanded, onToggle, arcColor }) {
               background: `linear-gradient(135deg, ${chapter.color}, ${chapter.color}dd)`,
               boxShadow: `0 0 40px ${chapter.color}60`,
             }}
-            animate={{ 
+            animate={{
               boxShadow: [
                 `0 0 40px ${chapter.color}60`,
                 `0 0 60px ${chapter.color}80`,
@@ -628,17 +628,17 @@ function ChapterCard({ chapter, isExpanded, onToggle, arcColor }) {
               <div className="space-y-6">
                 {chapter.missionGroups ? (
                   chapter.missionGroups.map((group, groupIndex) => (
-                    <MissionGroupCard 
-                      key={groupIndex} 
-                      group={group} 
+                    <MissionGroupCard
+                      key={groupIndex}
+                      group={group}
                       accentColor={chapter.color}
                     />
                   ))
                 ) : (
                   chapter.missions.map((mission) => (
-                    <MissionCard 
-                      key={mission.id} 
-                      mission={mission} 
+                    <MissionCard
+                      key={mission.id}
+                      mission={mission}
                       accentColor={chapter.color}
                     />
                   ))
@@ -673,7 +673,7 @@ function MissionGroupCard({ group, accentColor }) {
         whileHover={{ scale: 1.01, borderColor: group.color || accentColor }}
       >
         <div className="flex items-center gap-4">
-          <div 
+          <div
             className="w-12 h-12 rounded-lg flex items-center justify-center"
             style={{ background: `${group.color || accentColor}30` }}
           >
@@ -702,9 +702,9 @@ function MissionGroupCard({ group, accentColor }) {
           >
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {group.missions.map((mission) => (
-                <MissionCard 
-                  key={mission.id} 
-                  mission={mission} 
+                <MissionCard
+                  key={mission.id}
+                  mission={mission}
                   accentColor={group.color || accentColor}
                   compact
                 />
@@ -730,15 +730,15 @@ function MissionCard({ mission, accentColor, compact = false }) {
           border: `1px solid ${accentColor}30`,
         }}
         onClick={() => setShowModal(true)}
-        whileHover={{ 
-          scale: 1.02, 
+        whileHover={{
+          scale: 1.02,
           borderColor: accentColor,
           boxShadow: `0 0 30px ${accentColor}30`,
         }}
         whileTap={{ scale: 0.98 }}
       >
         <div className="flex items-start gap-3">
-          <div 
+          <div
             className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
             style={{ background: `${accentColor}25` }}
           >
@@ -763,8 +763,8 @@ function MissionCard({ mission, accentColor, compact = false }) {
 
       <AnimatePresence>
         {showModal && (
-          <MissionModal 
-            mission={mission} 
+          <MissionModal
+            mission={mission}
             accentColor={accentColor}
             onClose={() => setShowModal(false)}
           />
@@ -841,7 +841,7 @@ function MissionModal({ mission, accentColor, onClose }) {
           <h2 className="text-3xl font-cinzel font-black text-white mb-2">{mission.title}</h2>
           <p className="text-lg mb-6" style={{ color: accentColor }}>{mission.description}</p>
 
-          <div 
+          <div
             className="p-4 rounded-xl mb-6"
             style={{ background: `${accentColor}10`, border: `1px solid ${accentColor}30` }}
           >
@@ -873,7 +873,7 @@ function MissionModal({ mission, accentColor, onClose }) {
             </div>
           </div>
 
-          <div 
+          <div
             className="p-6 rounded-xl text-center mb-6"
             style={{
               background: `linear-gradient(135deg, ${accentColor}20, transparent)`,
@@ -1106,7 +1106,7 @@ function MissionPosterReveal() {
 export function CinematicArc({ arcKey }) {
   const arc = ARCS_DATA[arcKey];
   const [expandedChapter, setExpandedChapter] = useState(null);
-  
+
   if (!arc) return null;
 
   const ArcIcon = ICONS[arc.iconName] || Scroll;
