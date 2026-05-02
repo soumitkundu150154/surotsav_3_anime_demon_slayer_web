@@ -6,7 +6,7 @@ import { Check, Sword, Sparkles } from 'lucide-react';
 export function CorpsOath() {
   const { breathing } = useBreathing();
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const breathingColor = breathing.color || '#2d24aa';
+  const breathingColor = breathing.color || '#655ce5';
 
   const handleTakeOath = () => {
     setIsSubmitted(true);
