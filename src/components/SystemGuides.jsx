@@ -123,7 +123,7 @@ function GuideCard({ guide, onClick }) {
     whileTap={{ scale: 0.95 }}
     onClick={(e) => e.stopPropagation()}
   >
-    View Portfolio
+    View Porfile
   </motion.a>
 )}
         </motion.div>
