@@ -16,6 +16,15 @@
 
   html {
     scroll-behavior: smooth;
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* Prevent zoom on mobile input focus */
+  @supports (-webkit-touch-callout: none) {
+    html {
+      -webkit-text-size-adjust: 100%;
+    }
   }
 
   /* Performance optimizations for animations */
@@ -33,8 +42,28 @@
   }
 
   body {
-    @apply bg-night text-white overflow-x-hidden;
+    @apply bg-night text-white;
     font-family: 'Noto Serif JP', serif;
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Center all sections */
+  #root {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Ensure sections don't overflow */
+  section {
+    width: 100%;
+    position: relative;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -137,5 +166,47 @@
 
   .text-gradient-beast {
     @apply bg-gradient-to-r from-purple-300 via-purple-500 to-fuchsia-400 bg-clip-text text-transparent;
+  }
+
+  /* Mobile centering utilities */
+  .mobile-safe-center {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+
+  /* Prevent horizontal overflow on mobile */
+  .prevent-overflow {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  /* Full width sections with centered content */
+  .section-full {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Center container that works on all screen sizes */
+  .center-container {
+    width: 100%;
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .center-container {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .center-container {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
   }
 }

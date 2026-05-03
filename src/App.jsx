@@ -274,7 +274,8 @@ function AppContent() {
   const { selectedBreathing } = useBreathing();
   const [showScrollLock, setShowScrollLock] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const scrollLockRef = useRef({ isLocked: false });
+  const [isLocked, setIsLocked] = useState(true);
+  const scrollLockRef = useRef({ isLocked: true });
 
   // Detect mobile
   useEffect(() => {
@@ -286,64 +287,46 @@ function AppContent() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Scroll detection - gentler approach for mobile
+  // Lock/unlock sections based on breathing selection
   useEffect(() => {
-    let ticking = false;
-    
+    if (selectedBreathing !== 'none') {
+      setIsLocked(false);
+      scrollLockRef.current.isLocked = false;
+      setShowScrollLock(false);
+    } else {
+      setIsLocked(true);
+      scrollLockRef.current.isLocked = true;
+    }
+  }, [selectedBreathing]);
+
+  // Aggressive scroll lock - prevent scrolling past breathing section
+  useEffect(() => {
     const handleScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          if (selectedBreathing === 'none') {
-            const breathingSection = document.getElementById('breathing');
-            if (breathingSection) {
-              const rect = breathingSection.getBoundingClientRect();
-              // Show lock when breathing section is in view but user tries to go past
-              const shouldLock = rect.top < 100 && rect.bottom < window.innerHeight * 0.8;
-              setShowScrollLock(shouldLock);
-              scrollLockRef.current.isLocked = shouldLock;
-            }
+      if (selectedBreathing === 'none') {
+        const breathingSection = document.getElementById('breathing');
+        if (breathingSection) {
+          const rect = breathingSection.getBoundingClientRect();
+          const scrollPos = window.scrollY;
+          const breathingBottom = breathingSection.offsetTop + breathingSection.offsetHeight;
+          
+          // If trying to scroll past breathing section
+          if (scrollPos > breathingBottom - window.innerHeight * 0.3) {
+            // Lock to breathing section
+            window.scrollTo({
+              top: breathingSection.offsetTop,
+              behavior: 'auto'
+            });
+            setShowScrollLock(true);
           } else {
             setShowScrollLock(false);
-            scrollLockRef.current.isLocked = false;
           }
-          ticking = false;
-        });
-        ticking = true;
+        }
       }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, [selectedBreathing]);
-
-  // Gentle scroll guidance - only on desktop
-  useEffect(() => {
-    if (selectedBreathing === 'none' && !isMobile) {
-      let lastScrollY = window.scrollY;
-      
-      const gentleRedirect = (e) => {
-        const breathingSection = document.getElementById('breathing');
-        if (breathingSection && scrollLockRef.current.isLocked) {
-          const rect = breathingSection.getBoundingClientRect();
-          const scrollDelta = window.scrollY - lastScrollY;
-          
-          // Only intervene if user is actively scrolling down past the section
-          if (scrollDelta > 5 && rect.top < -50) {
-            e.preventDefault?.();
-            window.scrollTo({
-              top: breathingSection.offsetTop,
-              behavior: 'smooth'
-            });
-          }
-        }
-        lastScrollY = window.scrollY;
-      };
-      
-      window.addEventListener('scroll', gentleRedirect, { passive: false });
-      return () => window.removeEventListener('scroll', gentleRedirect);
-    }
-  }, [selectedBreathing, isMobile]);
 
   const scrollToBreathing = () => {
     const element = document.getElementById('breathing');
@@ -353,46 +336,65 @@ function AppContent() {
   };
 
   return (
-    <div ref={mainRef} className="relative min-h-screen bg-night">
+    <div ref={mainRef} className="relative min-h-screen bg-night overflow-x-hidden">
       <SwordCursor />
       <KonamiTrigger />
       <ProgressBar />
       <Navigation />
       <InfinityCastleMode />
 
-      <main>
-        <section id="hero">
+      <main className="w-full mx-auto">
+        {/* Hero - Always visible */}
+        <section id="hero" className="w-full">
           <FinalSelectionHero onEnter={scrollToBreathing} />
         </section>
 
-        <section id="breathing">
+        {/* Breathing Selector - Always visible, gateway to rest */}
+        <section id="breathing" className="w-full">
           <BreathingSelector />
         </section>
 
-        <section id="arcs">
-          <FeaturedArcs />
-        </section>
+        {/* Locked Sections Overlay */}
+        {isLocked && (
+          <div className="fixed inset-0 z-30 pointer-events-none">
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-night/50 to-night/80" />
+          </div>
+        )}
 
-        <section id="missions">
-          <MissionArcs />
-        </section>
+        {/* Subsequent sections - hidden/locked until breathing selected */}
+        <div className={`transition-all duration-1000 ${isLocked ? 'opacity-20 pointer-events-none blur-sm scale-95' : 'opacity-100 pointer-events-auto blur-0 scale-100'}`}>
+          <section id="arcs" className="w-full">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <FeaturedArcs />
+            </div>
+          </section>
 
-        {/* <section id="hashira">
-          <HashiraRoster />
-        </section> */}
+          <section id="missions" className="w-full">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <MissionArcs />
+            </div>
+          </section>
 
-        <section id="guides">
-          <SystemGuides />
-        </section>
+          <section id="guides" className="w-full">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <SystemGuides />
+            </div>
+          </section>
 
-        <section id="oath">
-          <CorpsOath />
-        </section>
+          <section id="oath" className="w-full">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <CorpsOath />
+            </div>
+          </section>
 
-        <section id="countdown">
-          <CountdownBattleTimer />
-        </section>
+          <section id="countdown" className="w-full">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <CountdownBattleTimer />
+            </div>
+          </section>
+        </div>
 
+        {/* Scroll Lock Indicator */}
         <AnimatePresence>
           {showScrollLock && selectedBreathing === 'none' && (
             <>
@@ -406,7 +408,10 @@ function AppContent() {
         </AnimatePresence>
       </main>
 
-      <Footer />
+      {/* Footer - Also locked */}
+      <div className={`transition-all duration-1000 ${isLocked ? 'opacity-20 pointer-events-none blur-sm' : 'opacity-100 pointer-events-auto blur-0'}`}>
+        <Footer />
+      </div>
     </div>
   );
 }
