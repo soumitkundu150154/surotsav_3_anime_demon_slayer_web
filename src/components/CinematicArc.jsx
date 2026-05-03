@@ -916,7 +916,7 @@ export function MissionModal({ mission, accentColor, onClose }) {
 }
 
 // Cinematic Poster Reveal Component
-function MissionPosterReveal() {
+export function MissionPosterReveal() {
   const [posterData, setPosterData] = useState(null);
   const [showPoster, setShowPoster] = useState(false);
   const [particles, setParticles] = useState([]);

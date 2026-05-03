@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useArcFilter } from '../context/ArcFilterContext';
 import { useBreathing } from '../context/BreathingContext';
-import { CinematicArc, ARCS_DATA, MissionModal } from './CinematicArc';
+import { CinematicArc, ARCS_DATA, MissionModal, MissionPosterReveal } from './CinematicArc';
 import { Flame, Waves, Zap, Wind, PawPrint, Sparkles, Sword, Crown, Music, X, Clock, Users, Trophy, FilterX, Target, Bot, Plane, Box, Film, Camera, Gamepad2, Brain, Puzzle, Code, Mic, MessageSquare, Scroll, Star, Car, Flag } from 'lucide-react';
 
 const BREATHING_ICONS = {
@@ -529,6 +529,7 @@ export function MissionArcs() {
           />
         )}
       </AnimatePresence>
+      <MissionPosterReveal />
     </section>
   );
 }
