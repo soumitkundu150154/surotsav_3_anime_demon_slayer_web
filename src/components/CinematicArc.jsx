@@ -98,8 +98,8 @@ The forge is lit. The hammer awaits. Will you answer the call?`,
       {
         id: 'man-ch1',
         number: 1,
-        title: 'Initiation',
-        subtitle: 'The First Trial',
+        title: 'Chapter 1',
+        subtitle: 'The First Spark',
         description: 'Every legend begins with a first step. Prove your wit and determination.',
         color: '#1b66c7',
         missions: [
@@ -119,8 +119,8 @@ The forge is lit. The hammer awaits. Will you answer the call?`,
       {
         id: 'man-ch2',
         number: 2,
-        title: 'Trials',
-        subtitle: 'The Gauntlet of Skill',
+        title: 'Chapter 2',
+        subtitle: 'The Rising Forge',
         description: 'Four trials await, each testing different aspects of your abilities.',
         color: '#1e6bd6',
         missionGroups: [
@@ -285,8 +285,8 @@ The forge is lit. The hammer awaits. Will you answer the call?`,
       {
         id: 'man-ch3',
         number: 3,
-        title: 'Final Confrontation',
-        subtitle: 'The Ultimate Test',
+        title: 'Chapter 3',
+        subtitle: 'The Ultimate Reckoning',
         description: 'Four final challenges. Only the worthy shall prevail.',
         color: '#1558df',
         missions: [

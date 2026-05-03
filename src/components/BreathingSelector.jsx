@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useBreathing } from '../context/BreathingContext';
-import { Flame, Waves, Zap, Wind, PawPrint } from 'lucide-react';
+import { Flame, Waves, Zap, Wind, PawPrint, Lock, AlertTriangle } from 'lucide-react';
 
 const BREATHING_CONFIG = {
   flame: {
@@ -165,16 +165,111 @@ function BreathingCard({ type, config, isSelected, onSelect, index }) {
   );
 }
 
+function RequirementWarning() {
+  return (
+    <motion.div
+      className="absolute top-0 left-0 right-0 z-20"
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.5 }}
+    >
+      <motion.div
+        className="bg-gradient-to-r from-red-900/40 via-red-600/20 to-red-900/40 border-y border-red-500/50 py-3"
+        animate={{
+          background: [
+            'linear-gradient(90deg, rgba(220, 38, 38, 0.4) 0%, rgba(239, 68, 68, 0.2) 50%, rgba(220, 38, 38, 0.4) 100%)',
+            'linear-gradient(90deg, rgba(239, 68, 68, 0.5) 0%, rgba(220, 38, 38, 0.3) 50%, rgba(239, 68, 68, 0.5) 100%)',
+            'linear-gradient(90deg, rgba(220, 38, 38, 0.4) 0%, rgba(239, 68, 68, 0.2) 50%, rgba(220, 38, 38, 0.4) 100%)',
+          ],
+        }}
+        transition={{ duration: 2, repeat: Infinity }}
+      >
+        <div className="max-w-6xl mx-auto flex items-center justify-center gap-3 px-4">
+          <motion.div
+            animate={{
+              rotate: [0, 15, -15, 0],
+              scale: [1, 1.1, 1],
+            }}
+            transition={{ duration: 1, repeat: Infinity }}
+          >
+            <AlertTriangle size={20} className="text-red-400" />
+          </motion.div>
+          <p className="text-red-200 text-sm md:text-base font-cinzel text-center">
+            <span className="font-bold">PATH SELECTION REQUIRED:</span> You must choose a breathing style to continue your journey
+          </p>
+          <motion.div
+            animate={{
+              rotate: [0, -15, 15, 0],
+              scale: [1, 1.1, 1],
+            }}
+            transition={{ duration: 1, repeat: Infinity }}
+          >
+            <AlertTriangle size={20} className="text-red-400" />
+          </motion.div>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+function LockOverlay() {
+  return (
+    <motion.div
+      className="absolute bottom-0 left-0 right-0 h-1/3 pointer-events-none"
+      style={{
+        background: 'linear-gradient(to top, rgba(220, 38, 38, 0.15), transparent)',
+      }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 1 }}
+    >
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4">
+        <motion.div
+          className="w-16 h-16 rounded-full border-2 border-red-500/50 flex items-center justify-center"
+          animate={{
+            scale: [1, 1.1, 1],
+            boxShadow: [
+              '0 0 20px rgba(220, 38, 38, 0.3)',
+              '0 0 40px rgba(220, 38, 38, 0.5)',
+              '0 0 20px rgba(220, 38, 38, 0.3)',
+            ],
+          }}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
+          <Lock size={28} className="text-red-400" />
+        </motion.div>
+        <motion.p
+          className="text-red-400 text-sm font-cinzel tracking-wider"
+          animate={{ opacity: [0.5, 1, 0.5] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
+          Content Locked - Select a Breathing Style
+        </motion.p>
+      </div>
+    </motion.div>
+  );
+}
+
 export function BreathingSelector() {
   const { selectedBreathing, selectBreathing } = useBreathing();
-  const [hoveredBreathing, setHoveredBreathing] = useState(null);
+  const [showPulse, setShowPulse] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShowPulse(false), 5000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleSelect = (type) => {
     selectBreathing(type);
   };
 
+  const isNoneSelected = selectedBreathing === 'none';
+
   return (
-    <section className="relative min-h-screen w-full py-24 px-6 bg-gradient-to-b from-[#0c0c1a] via-[#0f0f20] to-[#0c0c1a]">
+    <section id="breathing" className="relative min-h-screen w-full py-24 px-6 bg-gradient-to-b from-[#0c0c1a] via-[#0f0f20] to-[#0c0c1a]">
+      {isNoneSelected && <RequirementWarning />}
+      {isNoneSelected && <LockOverlay />}
+      
       <div className="max-w-6xl mx-auto">
         <motion.div
           className="text-center mb-16"
@@ -217,7 +312,7 @@ export function BreathingSelector() {
         </div>
 
         <AnimatePresence>
-          {selectedBreathing !== 'none' && (
+          {selectedBreathing !== 'none' ? (
             <motion.div
               className="mt-16 text-center"
               initial={{ opacity: 0, y: 30 }}
@@ -248,6 +343,62 @@ export function BreathingSelector() {
                 <p className="text-gray-400 text-sm mt-2">
                   This path will guide you through the festival
                 </p>
+              </motion.div>
+              
+              <motion.div
+                className="mt-6"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5 }}
+              >
+                <motion.div
+                  className="inline-flex items-center gap-2 text-wisteria-light/70 text-sm"
+                  animate={{ y: [0, 5, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                >
+                  <span>↓ Scroll down to continue your journey</span>
+                  <motion.div
+                    className="w-2 h-2 rounded-full bg-wisteria"
+                    animate={{ scale: [1, 1.3, 1], opacity: [0.5, 1, 0.5] }}
+                    transition={{ duration: 1, repeat: Infinity }}
+                  />
+                </motion.div>
+              </motion.div>
+            </motion.div>
+          ) : (
+            <motion.div
+              className="mt-16 text-center"
+              initial={{ opacity: 1 }}
+              animate={{ opacity: 1 }}
+            >
+              <motion.div
+                className="inline-block px-6 py-3 rounded-lg border border-red-500/30 bg-red-900/20"
+                animate={showPulse ? {
+                  boxShadow: [
+                    '0 0 20px rgba(220, 38, 38, 0.2)',
+                    '0 0 40px rgba(220, 38, 38, 0.4)',
+                    '0 0 20px rgba(220, 38, 38, 0.2)',
+                  ],
+                } : {}}
+                transition={{ duration: 1.5, repeat: showPulse ? Infinity : 0 }}
+              >
+                <div className="flex items-center gap-3">
+                  <motion.div
+                    animate={{ scale: [1, 1.2, 1], rotate: [0, 10, -10, 0] }}
+                    transition={{ duration: 0.5, repeat: Infinity }}
+                  >
+                    <AlertTriangle size={20} className="text-red-400" />
+                  </motion.div>
+                  <p className="text-red-300/80 text-sm font-cinzel">
+                    Select a breathing style above to unlock the path forward
+                  </p>
+                  <motion.div
+                    animate={{ scale: [1, 1.2, 1], rotate: [0, -10, 10, 0] }}
+                    transition={{ duration: 0.5, repeat: Infinity, delay: 0.25 }}
+                  >
+                    <AlertTriangle size={20} className="text-red-400" />
+                  </motion.div>
+                </div>
               </motion.div>
             </motion.div>
           )}
