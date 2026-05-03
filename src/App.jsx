@@ -280,7 +280,9 @@ function AppContent() {
   // Detect mobile
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768 || 'ontouchstart' in window);
+      const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      const isSmallScreen = window.innerWidth < 768;
+      setIsMobile(isTouch || isSmallScreen);
     };
     checkMobile();
     window.addEventListener('resize', checkMobile);
@@ -299,32 +301,45 @@ function AppContent() {
     }
   }, [selectedBreathing]);
 
-  // Aggressive scroll lock - prevent scrolling past breathing section
+  // Scroll detection for showing lock UI and preventing scroll past breathing
   useEffect(() => {
+    let ticking = false;
+    
     const handleScroll = () => {
-      if (selectedBreathing === 'none') {
-        const breathingSection = document.getElementById('breathing');
-        if (breathingSection) {
-          const rect = breathingSection.getBoundingClientRect();
-          const scrollPos = window.scrollY;
-          const breathingBottom = breathingSection.offsetTop + breathingSection.offsetHeight;
-          
-          // If trying to scroll past breathing section
-          if (scrollPos > breathingBottom - window.innerHeight * 0.3) {
-            // Lock to breathing section
-            window.scrollTo({
-              top: breathingSection.offsetTop,
-              behavior: 'auto'
-            });
-            setShowScrollLock(true);
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          if (selectedBreathing === 'none') {
+            const breathingSection = document.getElementById('breathing');
+            if (breathingSection) {
+              const rect = breathingSection.getBoundingClientRect();
+              const scrollPos = window.scrollY;
+              const breathingBottom = breathingSection.offsetTop + breathingSection.offsetHeight;
+              
+              // Show lock when approaching/past breathing section bottom
+              const shouldLock = scrollPos > breathingBottom - window.innerHeight * 0.3;
+              setShowScrollLock(shouldLock);
+              scrollLockRef.current.isLocked = shouldLock;
+              
+              // Prevent scrolling past
+              if (scrollPos > breathingBottom - window.innerHeight * 0.2) {
+                window.scrollTo({
+                  top: breathingSection.offsetTop,
+                  behavior: 'auto'
+                });
+              }
+            }
           } else {
             setShowScrollLock(false);
+            scrollLockRef.current.isLocked = false;
           }
-        }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, [selectedBreathing]);
 

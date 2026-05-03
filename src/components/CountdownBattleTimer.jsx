@@ -6,12 +6,12 @@ function TimeUnit({ value, label, color }) {
   const digits = value.toString().padStart(2, '0').split('');
 
   return (
-    <div className="flex flex-col items-center">
-      <div className="flex gap-1">
+    <div className="flex flex-col items-center flex-shrink-0">
+      <div className="flex gap-0.5 sm:gap-1">
         {digits.map((digit, i) => (
           <motion.div
             key={`${label}-${i}`}
-            className="relative w-16 h-24 md:w-20 md:h-28 flex items-center justify-center rounded-lg overflow-hidden"
+            className="relative w-12 h-16 sm:w-14 sm:h-20 md:w-20 md:h-28 flex items-center justify-center rounded-md sm:rounded-lg overflow-hidden"
             style={{
               background: 'linear-gradient(180deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02))',
               border: `1px solid ${color}40`,
@@ -31,19 +31,19 @@ function TimeUnit({ value, label, color }) {
             <AnimatePresence mode="popLayout">
               <motion.span
                 key={digit}
-                className="text-4xl md:text-6xl font-cinzel font-black"
+                className="text-2xl sm:text-3xl md:text-6xl font-cinzel font-black"
                 style={{ color }}
-                initial={{ y: -40, opacity: 0, filter: 'blur(10px)' }}
+                initial={{ y: -20, opacity: 0, filter: 'blur(6px)' }}
                 animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
-                exit={{ y: 40, opacity: 0, filter: 'blur(10px)' }}
-                transition={{ duration: 0.4, ease: 'easeOut' }}
+                exit={{ y: 20, opacity: 0, filter: 'blur(6px)' }}
+                transition={{ duration: 0.35, ease: 'easeOut' }}
               >
                 {digit}
               </motion.span>
             </AnimatePresence>
 
             <motion.div
-              className="absolute bottom-0 left-0 right-0 h-1"
+              className="absolute bottom-0 left-0 right-0 h-0.5 sm:h-1"
               style={{ background: color }}
               animate={{
                 scaleX: [0, 1, 0],
@@ -55,7 +55,7 @@ function TimeUnit({ value, label, color }) {
         ))}
       </div>
       <motion.span
-        className="text-xs md:text-sm uppercase tracking-widest mt-3"
+        className="text-[10px] sm:text-xs md:text-sm uppercase tracking-widest mt-2 sm:mt-3"
         style={{ color: `${color}80` }}
       >
         {label}
@@ -122,20 +122,20 @@ export function CountdownBattleTimer() {
   const isUrgent = totalSeconds < 86400;
 
   return (
-    <section className="relative min-h-screen w-full py-24 px-6 bg-gradient-to-b from-[#0c0c1a] via-[#0a0a15] to-[#0c0c1a] overflow-hidden">
+    <section className="relative min-h-screen w-full py-16 sm:py-20 md:py-24 px-4 sm:px-6 bg-gradient-to-b from-[#0c0c1a] via-[#0a0a15] to-[#0c0c1a] overflow-hidden">
       <EnergyWave color={timerColor} delay={0} />
       <EnergyWave color={timerColor} delay={1} />
       <EnergyWave color={timerColor} delay={2} />
 
       <div className="relative z-10 max-w-6xl mx-auto">
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-14 md:mb-16"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
           <motion.p
-            className="text-sm tracking-[0.5em] mb-4 uppercase"
+            className="text-xs sm:text-sm tracking-[0.3em] sm:tracking-[0.5em] mb-3 sm:mb-4 uppercase"
             style={{ color: timerColor }}
             animate={isUrgent ? {
               opacity: [0.5, 1, 0.5],
@@ -150,12 +150,12 @@ export function CountdownBattleTimer() {
             ARC 3 — The Final Battle Approaches
           </motion.p>
 
-          <h2 className="anime-title text-white mb-6">
+          <h2 className="anime-title text-white mb-4 sm:mb-6 text-2xl sm:text-3xl md:text-4xl">
             Mission Countdown
           </h2>
 
           <motion.div
-            className="w-32 h-0.5 mx-auto mb-6"
+            className="w-24 sm:w-32 h-0.5 mx-auto mb-4 sm:mb-6"
             style={{ background: timerColor }}
             animate={{
               boxShadow: [
@@ -167,43 +167,43 @@ export function CountdownBattleTimer() {
             transition={{ duration: 2, repeat: Infinity }}
           />
 
-          <p className="anime-subtitle text-gray-400 max-w-xl mx-auto">
+          <p className="text-sm sm:text-base text-gray-400 max-w-xl mx-auto px-2">
             The festival draws near. The demons grow restless.
             Your training must be complete before the final moon rises.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 max-w-4xl mx-auto">
+        <div className="grid grid-cols-4 gap-2 sm:gap-4 md:gap-6 lg:gap-8 max-w-xs sm:max-w-lg md:max-w-4xl mx-auto">
           <TimeUnit value={timeLeft.days} label="Days" color={timerColor} />
           <TimeUnit value={timeLeft.hours} label="Hours" color={timerColor} />
-          <TimeUnit value={timeLeft.minutes} label="Minutes" color={timerColor} />
-          <TimeUnit value={timeLeft.seconds} label="Seconds" color={timerColor} />
+          <TimeUnit value={timeLeft.minutes} label="Mins" color={timerColor} />
+          <TimeUnit value={timeLeft.seconds} label="Secs" color={timerColor} />
         </div>
 
         <AnimatePresence>
           {isUrgent && (
             <motion.div
-              className="mt-12 text-center"
+              className="mt-8 sm:mt-12 text-center"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
             >
               <motion.div
-                className="inline-block px-6 py-3 rounded-lg border-2"
+                className="inline-block px-4 sm:px-6 py-2 sm:py-3 rounded-lg border-2"
                 style={{
                   borderColor: timerColor,
                   background: `${timerColor}10`,
                 }}
                 animate={{
                   boxShadow: [
-                    `0 0 20px ${timerColor}30`,
-                    `0 0 60px ${timerColor}60`,
-                    `0 0 20px ${timerColor}30`,
+                    `0 0 15px ${timerColor}30`,
+                    `0 0 40px ${timerColor}60`,
+                    `0 0 15px ${timerColor}30`,
                   ],
                 }}
                 transition={{ duration: 0.8, repeat: Infinity }}
               >
-                <span className="text-white font-cinzel text-lg" style={{ color: timerColor }}>
+                <span className="text-white font-cinzel text-sm sm:text-base md:text-lg" style={{ color: timerColor }}>
                   ⚠ The Final Battle Approaches ⚠
                 </span>
               </motion.div>
@@ -212,13 +212,13 @@ export function CountdownBattleTimer() {
         </AnimatePresence>
 
         <motion.div
-          className="mt-16 text-center"
+          className="mt-10 sm:mt-16 text-center"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
         >
           <motion.div
-            className="inline-flex items-center gap-2 text-sm text-gray-500"
+            className="inline-flex items-center gap-2 text-xs sm:text-sm text-gray-500"
             animate={{ opacity: [0.5, 1, 0.5] }}
             transition={{ duration: 3, repeat: Infinity }}
           >
