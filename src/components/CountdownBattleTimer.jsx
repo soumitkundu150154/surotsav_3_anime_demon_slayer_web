@@ -11,7 +11,7 @@ function TimeUnit({ value, label, color }) {
         {digits.map((digit, i) => (
           <motion.div
             key={`${label}-${i}`}
-            className="relative w-12 h-16 sm:w-14 sm:h-20 md:w-20 md:h-28 flex items-center justify-center rounded-md sm:rounded-lg overflow-hidden"
+            className="relative w-8 h-12 xs:w-10 xs:h-14 sm:w-14 sm:h-20 md:w-20 md:h-28 flex items-center justify-center rounded-md sm:rounded-lg overflow-hidden"
             style={{
               background: 'linear-gradient(180deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02))',
               border: `1px solid ${color}40`,
@@ -31,7 +31,7 @@ function TimeUnit({ value, label, color }) {
             <AnimatePresence mode="popLayout">
               <motion.span
                 key={digit}
-                className="text-2xl sm:text-3xl md:text-6xl font-cinzel font-black"
+                className="text-xl xs:text-2xl sm:text-3xl md:text-6xl font-cinzel font-black"
                 style={{ color }}
                 initial={{ y: -20, opacity: 0, filter: 'blur(6px)' }}
                 animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
@@ -173,7 +173,7 @@ export function CountdownBattleTimer() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-4 gap-2 sm:gap-4 md:gap-6 lg:gap-8 max-w-xs sm:max-w-lg md:max-w-4xl mx-auto">
+        <div className="grid grid-cols-4 gap-1 xs:gap-2 sm:gap-4 md:gap-6 lg:gap-8 w-full px-1 max-w-[100vw] sm:max-w-lg md:max-w-4xl mx-auto justify-items-center">
           <TimeUnit value={timeLeft.days} label="Days" color={timerColor} />
           <TimeUnit value={timeLeft.hours} label="Hours" color={timerColor} />
           <TimeUnit value={timeLeft.minutes} label="Mins" color={timerColor} />
