@@ -279,71 +279,107 @@ function AppContent() {
   // Detect mobile
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768 || 'ontouchstart' in window);
+      const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      const isSmallScreen = window.innerWidth < 768;
+      setIsMobile(isTouch || isSmallScreen);
     };
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Scroll detection - gentler approach for mobile
+  // Scroll lock logic - works for both mobile and desktop
   useEffect(() => {
-    let ticking = false;
+    if (selectedBreathing !== 'none') {
+      document.body.style.overflow = '';
+      document.body.style.touchAction = '';
+      return;
+    }
+
+    const breathingSection = document.getElementById('breathing');
+    if (!breathingSection) return;
+
+    let breathingBottom = 0;
     
-    const handleScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          if (selectedBreathing === 'none') {
-            const breathingSection = document.getElementById('breathing');
-            if (breathingSection) {
-              const rect = breathingSection.getBoundingClientRect();
-              // Show lock when breathing section is in view but user tries to go past
-              const shouldLock = rect.top < 100 && rect.bottom < window.innerHeight * 0.8;
-              setShowScrollLock(shouldLock);
-              scrollLockRef.current.isLocked = shouldLock;
-            }
-          } else {
-            setShowScrollLock(false);
-            scrollLockRef.current.isLocked = false;
-          }
-          ticking = false;
+    const updatePosition = () => {
+      const rect = breathingSection.getBoundingClientRect();
+      breathingBottom = rect.bottom + window.scrollY;
+    };
+    
+    updatePosition();
+    
+    // For mobile: prevent body scroll when past breathing section
+    const preventBodyScroll = (e) => {
+      const currentScroll = window.scrollY;
+      const viewportHeight = window.innerHeight;
+      
+      // If trying to scroll past breathing section bottom
+      if (currentScroll + viewportHeight > breathingBottom + 50) {
+        e.preventDefault();
+        window.scrollTo({
+          top: breathingBottom - viewportHeight + 100,
+          behavior: 'smooth'
         });
-        ticking = true;
       }
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [selectedBreathing]);
+    // Wheel event (desktop)
+    const handleWheel = (e) => {
+      if (e.deltaY > 0) {
+        preventBodyScroll(e);
+      }
+    };
 
-  // Gentle scroll guidance - only on desktop
-  useEffect(() => {
-    if (selectedBreathing === 'none' && !isMobile) {
-      let lastScrollY = window.scrollY;
+    // Touch events (mobile)
+    let touchStartY = 0;
+    const handleTouchStart = (e) => {
+      touchStartY = e.touches[0].clientY;
+    };
+    
+    const handleTouchMove = (e) => {
+      const touchY = e.touches[0].clientY;
+      const deltaY = touchStartY - touchY;
       
-      const gentleRedirect = (e) => {
-        const breathingSection = document.getElementById('breathing');
-        if (breathingSection && scrollLockRef.current.isLocked) {
-          const rect = breathingSection.getBoundingClientRect();
-          const scrollDelta = window.scrollY - lastScrollY;
-          
-          // Only intervene if user is actively scrolling down past the section
-          if (scrollDelta > 5 && rect.top < -50) {
-            e.preventDefault?.();
-            window.scrollTo({
-              top: breathingSection.offsetTop,
-              behavior: 'smooth'
-            });
-          }
+      // Scrolling down
+      if (deltaY > 10) {
+        const currentScroll = window.scrollY;
+        const viewportHeight = window.innerHeight;
+        
+        if (currentScroll + viewportHeight > breathingBottom) {
+          e.preventDefault();
         }
-        lastScrollY = window.scrollY;
-      };
+      }
+    };
+
+    // Scroll detection for showing lock UI
+    const handleScroll = () => {
+      const currentScroll = window.scrollY;
+      const viewportHeight = window.innerHeight;
+      const isPastBreathing = currentScroll + viewportHeight > breathingBottom;
       
-      window.addEventListener('scroll', gentleRedirect, { passive: false });
-      return () => window.removeEventListener('scroll', gentleRedirect);
-    }
-  }, [selectedBreathing, isMobile]);
+      setShowScrollLock(isPastBreathing);
+      scrollLockRef.current.isLocked = isPastBreathing;
+    };
+
+    // Add all listeners
+    window.addEventListener('wheel', handleWheel, { passive: false });
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: false });
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', updatePosition);
+    
+    handleScroll();
+
+    return () => {
+      window.removeEventListener('wheel', handleWheel);
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', updatePosition);
+      document.body.style.overflow = '';
+      document.body.style.touchAction = '';
+    };
+  }, [selectedBreathing]);
 
   const scrollToBreathing = () => {
     const element = document.getElementById('breathing');

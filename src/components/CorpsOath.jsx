@@ -17,7 +17,7 @@ export function CorpsOath() {
   };
 
   return (
-    <section className="relative min-h-[60vh] w-full py-24 px-6 bg-gradient-to-b from-[#0c0c1a] via-[#0a0a12] to-[#0c0c1a] overflow-hidden">
+    <section className="relative min-h-[60vh] w-full py-16 sm:py-20 md:py-24 px-4 sm:px-6 bg-gradient-to-b from-[#0c0c1a] via-[#0a0a12] to-[#0c0c1a] overflow-hidden">
       {/* Animated background glow */}
       <motion.div
         className="absolute inset-0"
@@ -102,7 +102,7 @@ export function CorpsOath() {
 
               {/* Title */}
               <motion.h2
-                className="text-4xl md:text-5xl font-cinzel font-black text-white mb-8"
+                className="text-3xl sm:text-4xl md:text-5xl font-cinzel font-black text-white mb-6 sm:mb-8"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
@@ -112,13 +112,13 @@ export function CorpsOath() {
 
               {/* Tagline */}
               <motion.p
-                className="text-lg md:text-xl text-gray-300 max-w-xl mx-auto mb-12 leading-relaxed"
+                className="text-base sm:text-lg md:text-xl text-gray-300 max-w-xl mx-auto mb-8 sm:mb-12 leading-relaxed px-2"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
               >
                 Swear your allegiance to the Demon Slayer Corps.
-                <br />
+                <br className="hidden sm:block" />
                 Stand with us against the darkness.
               </motion.p>
 
@@ -130,7 +130,7 @@ export function CorpsOath() {
               >
                 <motion.button
                   onClick={handleTakeOath}
-                  className="relative px-12 py-5 rounded-2xl font-cinzel font-bold text-lg text-white overflow-hidden group"
+                  className="relative px-8 sm:px-12 py-4 sm:py-5 rounded-2xl font-cinzel font-bold text-base sm:text-lg text-white overflow-hidden group"
                   style={{
                     background: `linear-gradient(135deg, ${breathingColor}, ${breathingColor}dd)`,
                     boxShadow: `0 0 40px ${breathingColor}40`,
@@ -139,7 +139,7 @@ export function CorpsOath() {
                     scale: 1.05,
                     boxShadow: `0 0 60px ${breathingColor}60`,
                   }}
-                  whileTap={{ scale: 0.98 }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   {/* Animated shimmer */}
                   <motion.div
@@ -191,7 +191,7 @@ export function CorpsOath() {
             >
               {/* Success icon */}
               <motion.div
-                className="w-24 h-24 mx-auto mb-8 rounded-full flex items-center justify-center"
+                className="w-20 h-20 sm:w-24 sm:h-24 mx-auto mb-6 sm:mb-8 rounded-full flex items-center justify-center"
                 style={{
                   background: `linear-gradient(135deg, ${breathingColor}, ${breathingColor}dd)`,
                   boxShadow: `0 0 60px ${breathingColor}60`,
@@ -200,12 +200,12 @@ export function CorpsOath() {
                 animate={{ scale: 1, rotate: 0 }}
                 transition={{ type: 'spring', damping: 15, delay: 0.2 }}
               >
-                <Check size={48} className="text-white" />
+                <Check size={36} className="sm:w-12 sm:h-12 text-white" />
               </motion.div>
 
               {/* Success message */}
               <motion.h3
-                className="text-3xl md:text-4xl font-cinzel font-black text-white mb-4"
+                className="text-2xl sm:text-3xl md:text-4xl font-cinzel font-black text-white mb-4"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
@@ -214,13 +214,13 @@ export function CorpsOath() {
               </motion.h3>
 
               <motion.p
-                className="text-gray-300 text-lg max-w-lg mx-auto"
+                className="text-gray-300 text-base sm:text-lg max-w-lg mx-auto px-4"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
               >
                 Your oath has been recorded.
-                <br />
+                <br className="hidden sm:block" />
                 Stand proud among the Demon Slayers.
               </motion.p>
 
