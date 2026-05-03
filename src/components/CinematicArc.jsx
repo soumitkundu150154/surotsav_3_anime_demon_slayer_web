@@ -576,7 +576,7 @@ function ChapterCard({ chapter, isExpanded, onToggle, arcColor }) {
         onClick={onToggle}
         whileHover={{ scale: 1.01 }}
       >
-        <div className="p-8 flex items-center gap-8">
+        <div className="p-5 sm:p-8 flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-8 text-center sm:text-left">
           <motion.div
             className="relative w-24 h-24 rounded-2xl flex items-center justify-center"
             style={{
@@ -595,8 +595,8 @@ function ChapterCard({ chapter, isExpanded, onToggle, arcColor }) {
             <span className="text-5xl font-black text-white">{chapter.number}</span>
           </motion.div>
 
-          <div className="flex-1">
-            <h3 className="text-3xl font-cinzel font-black text-white mb-2">
+          <div className="flex-1 w-full sm:w-auto">
+            <h3 className="text-2xl sm:text-3xl font-cinzel font-black text-white mb-2 break-words">
               {chapter.title}
             </h3>
             <p className="text-sm uppercase tracking-widest mb-2" style={{ color: chapter.color }}>
@@ -606,7 +606,7 @@ function ChapterCard({ chapter, isExpanded, onToggle, arcColor }) {
           </div>
 
           <motion.div
-            className="w-12 h-12 rounded-full flex items-center justify-center"
+            className="w-12 h-12 rounded-full flex items-center justify-center shrink-0"
             style={{ background: `${chapter.color}30` }}
             animate={{ rotate: isExpanded ? 90 : 0 }}
           >
@@ -837,8 +837,8 @@ function MissionModal({ mission, accentColor, onClose }) {
           </div>
         </div>
 
-        <div className="p-8">
-          <h2 className="text-3xl font-cinzel font-black text-white mb-2">{mission.title}</h2>
+        <div className="p-5 sm:p-8">
+          <h2 className="text-2xl sm:text-3xl font-cinzel font-black text-white mb-2 break-words">{mission.title}</h2>
           <p className="text-lg mb-6" style={{ color: accentColor }}>{mission.description}</p>
 
           <div
@@ -849,7 +849,7 @@ function MissionModal({ mission, accentColor, onClose }) {
             <p className="text-gray-300 leading-relaxed">{mission.details}</p>
           </div>
 
-          <div className="grid grid-cols-3 gap-4 mb-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-4 mb-6">
             <div className="p-4 rounded-xl text-center" style={{ background: `${accentColor}10` }}>
               <div className="flex items-center justify-center gap-2 text-gray-400 text-sm mb-1">
                 <Target size={16} />
@@ -1016,7 +1016,7 @@ function MissionPosterReveal() {
 
           {/* Poster container */}
           <motion.div
-            className="relative z-10 max-w-2xl w-full"
+            className="relative z-10 max-w-2xl w-[90vw] sm:w-full"
             initial={{ scale: 0.3, rotateY: -30, opacity: 0 }}
             animate={{ scale: 1, rotateY: 0, opacity: 1 }}
             exit={{ scale: 0.3, rotateY: 30, opacity: 0 }}

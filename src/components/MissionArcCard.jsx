@@ -241,7 +241,7 @@ function EventModal({ event, onClose }) {
           <X className="text-white" size={20} />
         </button>
 
-        <div className="relative p-8">
+        <div className="relative p-5 sm:p-8">
           <motion.div
             className="w-20 h-20 rounded-2xl flex items-center justify-center mb-6 mx-auto"
             style={{
@@ -258,7 +258,7 @@ function EventModal({ event, onClose }) {
           </motion.div>
 
           <motion.h2
-            className="text-4xl font-cinzel font-black text-center mb-2"
+            className="text-2xl sm:text-4xl font-cinzel font-black text-center mb-2 break-words"
             style={{ color: config.color }}
           >
             {event.title}
@@ -272,7 +272,7 @@ function EventModal({ event, onClose }) {
               <p className="text-gray-300 leading-relaxed">{event.details}</p>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div
                 className="p-4 rounded-lg"
                 style={{ background: `${config.color}10` }}
@@ -357,7 +357,7 @@ function ArcOverviewCard({ arcKey, arc, onClick }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
     >
-      <div className="flex items-start gap-4">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
         <motion.div
           className="w-16 h-16 rounded-xl flex items-center justify-center flex-shrink-0"
           style={{
@@ -368,7 +368,7 @@ function ArcOverviewCard({ arcKey, arc, onClick }) {
           <ArcIcon size={32} className="text-white" />
         </motion.div>
         <div className="flex-1">
-          <h3 className="text-2xl font-cinzel font-black text-white mb-1">{arc.title}</h3>
+          <h3 className="text-xl sm:text-2xl font-cinzel font-black text-white mb-1 break-words">{arc.title}</h3>
           <p className="text-sm mb-2" style={{ color: arc.color }}>{arc.subtitle}</p>
           <p className="text-xs text-gray-400 line-clamp-2 mb-3">{arc.tagline}</p>
           <div className="flex items-center gap-4">
