@@ -52,21 +52,21 @@ function BreathingCard({ type, config, isSelected, onSelect, index }) {
   return (
     <motion.div
       className="relative"
-      initial={{ opacity: 0, y: 50 }}
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.5, delay: index * 0.08 }}
     >
       <motion.button
         onClick={() => onSelect(type)}
-        className={`relative w-full p-6 text-left transition-all duration-500 ${
+        className={`relative w-full p-3 sm:p-4 md:p-6 text-left transition-all duration-500 ${
           isSelected ? 'z-10' : 'z-0'
         }`}
         whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
+        whileTap={{ scale: 0.95 }}
       >
         <motion.div
-          className="absolute inset-0 rounded-xl"
+          className="absolute inset-0 rounded-lg sm:rounded-xl"
           style={{
             background: isSelected
               ? `linear-gradient(135deg, ${config.color}20, transparent)`
@@ -75,25 +75,25 @@ function BreathingCard({ type, config, isSelected, onSelect, index }) {
           }}
           animate={{
             boxShadow: isSelected
-              ? `0 0 40px ${config.color}40, inset 0 0 40px ${config.color}10`
+              ? `0 0 30px ${config.color}40, inset 0 0 30px ${config.color}10`
               : 'none',
           }}
         />
 
         {isSelected && (
           <motion.div
-            className="absolute inset-0 rounded-xl"
+            className="absolute inset-0 rounded-lg sm:rounded-xl"
             style={{
-              background: `radial-gradient(circle at center, ${config.color}20, transparent 70%)`,
+              background: `radial-gradient(circle at center, ${config.color}15, transparent 70%)`,
             }}
-            animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.8, 0.5] }}
+            animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0.8, 0.5] }}
             transition={{ duration: 3, repeat: Infinity }}
           />
         )}
 
         <div className="relative z-10">
           <motion.div
-            className="w-16 h-16 rounded-full flex items-center justify-center mb-4"
+            className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center mb-2 sm:mb-3 md:mb-4 mx-auto sm:mx-0"
             style={{
               background: isSelected
                 ? `linear-gradient(135deg, ${config.color}, ${config.particleColor})`
@@ -103,21 +103,23 @@ function BreathingCard({ type, config, isSelected, onSelect, index }) {
             animate={isSelected ? {
               rotate: [0, 360],
               boxShadow: [
-                `0 0 20px ${config.color}40`,
-                `0 0 40px ${config.color}60`,
-                `0 0 20px ${config.color}40`,
+                `0 0 15px ${config.color}40`,
+                `0 0 30px ${config.color}60`,
+                `0 0 15px ${config.color}40`,
               ],
             } : {}}
             transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
           >
             <Icon
-              size={28}
+              size={20}
+              className="sm:w-6 sm:h-6 md:w-7 md:h-7"
               style={{ color: isSelected ? '#fff' : config.color }}
             />
           </motion.div>
 
-          <h3 className="text-xl font-cinzel font-bold mb-2" style={{ color: config.color }}>
-            {config.title}
+          <h3 className="text-sm sm:text-base md:text-xl font-cinzel font-bold mb-1 sm:mb-2 text-center sm:text-left" style={{ color: config.color }}>
+            <span className="hidden sm:inline">{config.title}</span>
+            <span className="sm:hidden">{config.title.split(' ')[0]}</span>
           </h3>
 
           <AnimatePresence>
@@ -128,17 +130,17 @@ function BreathingCard({ type, config, isSelected, onSelect, index }) {
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.3 }}
               >
-                <p className="text-gray-300 text-sm mb-3 leading-relaxed">
+                <p className="text-gray-300 text-xs sm:text-sm mb-2 sm:mb-3 leading-relaxed hidden sm:block">
                   {config.description}
                 </p>
                 <motion.div
-                  className="text-xs uppercase tracking-widest py-2 px-3 rounded"
+                  className="text-[10px] sm:text-xs uppercase tracking-wider py-1.5 sm:py-2 px-2 sm:px-3 rounded"
                   style={{
                     background: `${config.color}20`,
                     color: config.color,
-                    borderLeft: `3px solid ${config.color}`,
+                    borderLeft: `2px solid ${config.color}`,
                   }}
-                  initial={{ x: -20, opacity: 0 }}
+                  initial={{ x: -10, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   transition={{ delay: 0.2 }}
                 >
@@ -151,10 +153,10 @@ function BreathingCard({ type, config, isSelected, onSelect, index }) {
 
         {isSelected && (
           <motion.div
-            className="absolute top-2 right-2 w-3 h-3 rounded-full"
+            className="absolute top-1.5 right-1.5 sm:top-2 sm:right-2 w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full"
             style={{ background: config.color }}
             animate={{
-              scale: [1, 1.5, 1],
+              scale: [1, 1.4, 1],
               opacity: [1, 0.5, 1],
             }}
             transition={{ duration: 2, repeat: Infinity }}
@@ -174,7 +176,7 @@ function RequirementWarning() {
       transition={{ delay: 0.5 }}
     >
       <motion.div
-        className="bg-gradient-to-r from-red-900/40 via-red-600/20 to-red-900/40 border-y border-red-500/50 py-3"
+        className="bg-gradient-to-r from-red-900/40 via-red-600/20 to-red-900/40 border-y border-red-500/50 py-2 md:py-3"
         animate={{
           background: [
             'linear-gradient(90deg, rgba(220, 38, 38, 0.4) 0%, rgba(239, 68, 68, 0.2) 50%, rgba(220, 38, 38, 0.4) 100%)',
@@ -184,7 +186,7 @@ function RequirementWarning() {
         }}
         transition={{ duration: 2, repeat: Infinity }}
       >
-        <div className="max-w-6xl mx-auto flex items-center justify-center gap-3 px-4">
+        <div className="max-w-6xl mx-auto flex items-center justify-center gap-2 md:gap-3 px-3 md:px-4">
           <motion.div
             animate={{
               rotate: [0, 15, -15, 0],
@@ -192,10 +194,12 @@ function RequirementWarning() {
             }}
             transition={{ duration: 1, repeat: Infinity }}
           >
-            <AlertTriangle size={20} className="text-red-400" />
+            <AlertTriangle size={16} className="text-red-400 md:w-5 md:h-5" />
           </motion.div>
-          <p className="text-red-200 text-sm md:text-base font-cinzel text-center">
-            <span className="font-bold">PATH SELECTION REQUIRED:</span> You must choose a breathing style to continue your journey
+          <p className="text-red-200 text-xs md:text-base font-cinzel text-center">
+            <span className="font-bold hidden sm:inline">PATH SELECTION REQUIRED:</span>
+            <span className="sm:hidden">TAP a card below ↓</span>
+            <span className="hidden sm:inline"> You must choose a breathing style to continue</span>
           </p>
           <motion.div
             animate={{
@@ -203,8 +207,9 @@ function RequirementWarning() {
               scale: [1, 1.1, 1],
             }}
             transition={{ duration: 1, repeat: Infinity }}
+            className="hidden sm:block"
           >
-            <AlertTriangle size={20} className="text-red-400" />
+            <AlertTriangle size={16} className="text-red-400 md:w-5 md:h-5" />
           </motion.div>
         </div>
       </motion.div>
@@ -215,7 +220,7 @@ function RequirementWarning() {
 function LockOverlay() {
   return (
     <motion.div
-      className="absolute bottom-0 left-0 right-0 h-1/3 pointer-events-none"
+      className="absolute bottom-0 left-0 right-0 h-1/4 md:h-1/3 pointer-events-none"
       style={{
         background: 'linear-gradient(to top, rgba(220, 38, 38, 0.15), transparent)',
       }}
@@ -223,9 +228,9 @@ function LockOverlay() {
       animate={{ opacity: 1 }}
       transition={{ delay: 1 }}
     >
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4">
+      <div className="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 md:gap-4">
         <motion.div
-          className="w-16 h-16 rounded-full border-2 border-red-500/50 flex items-center justify-center"
+          className="w-12 h-12 md:w-16 md:h-16 rounded-full border-2 border-red-500/50 flex items-center justify-center"
           animate={{
             scale: [1, 1.1, 1],
             boxShadow: [
@@ -236,14 +241,15 @@ function LockOverlay() {
           }}
           transition={{ duration: 2, repeat: Infinity }}
         >
-          <Lock size={28} className="text-red-400" />
+          <Lock size={20} className="text-red-400 md:w-7 md:h-7" />
         </motion.div>
         <motion.p
-          className="text-red-400 text-sm font-cinzel tracking-wider"
+          className="text-red-400 text-xs md:text-sm font-cinzel tracking-wider text-center px-2"
           animate={{ opacity: [0.5, 1, 0.5] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
-          Content Locked - Select a Breathing Style
+          <span className="hidden sm:inline">Content Locked - Select a Breathing Style</span>
+          <span className="sm:hidden">Tap a style above to unlock ↓</span>
         </motion.p>
       </div>
     </motion.div>
@@ -298,7 +304,7 @@ export function BreathingSelector() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-4">
           {Object.entries(BREATHING_CONFIG).map(([type, config], index) => (
             <BreathingCard
               key={type}
@@ -367,22 +373,36 @@ export function BreathingSelector() {
             </motion.div>
           ) : (
             <motion.div
-              className="mt-16 text-center"
+              className="mt-10 sm:mt-16 text-center"
               initial={{ opacity: 1 }}
               animate={{ opacity: 1 }}
             >
               <motion.div
-                className="inline-block px-6 py-3 rounded-lg border border-red-500/30 bg-red-900/20"
+                className="inline-block px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg border border-red-500/30 bg-red-900/20 mx-2"
                 animate={showPulse ? {
                   boxShadow: [
-                    '0 0 20px rgba(220, 38, 38, 0.2)',
-                    '0 0 40px rgba(220, 38, 38, 0.4)',
-                    '0 0 20px rgba(220, 38, 38, 0.2)',
+                    '0 0 15px rgba(220, 38, 38, 0.2)',
+                    '0 0 30px rgba(220, 38, 38, 0.4)',
+                    '0 0 15px rgba(220, 38, 38, 0.2)',
                   ],
                 } : {}}
                 transition={{ duration: 1.5, repeat: showPulse ? Infinity : 0 }}
               >
-                <div className="flex items-center gap-3">
+                {/* Mobile message */}
+                <div className="flex items-center gap-2 sm:hidden">
+                  <motion.div
+                    animate={{ scale: [1, 1.2, 1] }}
+                    transition={{ duration: 0.5, repeat: Infinity }}
+                  >
+                    <AlertTriangle size={18} className="text-red-400" />
+                  </motion.div>
+                  <p className="text-red-300/90 text-sm font-cinzel">
+                    Tap any card above to continue ↓
+                  </p>
+                </div>
+                
+                {/* Desktop message */}
+                <div className="hidden sm:flex items-center gap-3">
                   <motion.div
                     animate={{ scale: [1, 1.2, 1], rotate: [0, 10, -10, 0] }}
                     transition={{ duration: 0.5, repeat: Infinity }}
@@ -400,6 +420,15 @@ export function BreathingSelector() {
                   </motion.div>
                 </div>
               </motion.div>
+              
+              {/* Additional mobile hint */}
+              <motion.p
+                className="mt-3 text-red-400/60 text-xs sm:hidden"
+                animate={{ opacity: [0.5, 1, 0.5] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              >
+                The rest of the website is locked until you choose
+              </motion.p>
             </motion.div>
           )}
         </AnimatePresence>

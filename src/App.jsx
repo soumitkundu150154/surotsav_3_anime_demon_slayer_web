@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion';
 import { BreathingProvider, useBreathing } from './context/BreathingContext';
 import { ArcFilterProvider } from './context/ArcFilterContext';
@@ -168,24 +168,147 @@ function ScrollLockOverlay() {
   );
 }
 
+function MobileScrollLock({ isVisible, onSelectBreathing }) {
+  if (!isVisible) return null;
+  
+  return (
+    <motion.div
+      className="fixed inset-x-0 bottom-20 z-50 px-4 md:hidden"
+      initial={{ opacity: 0, y: 100 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 100 }}
+    >
+      <motion.div 
+        className="bg-gradient-to-r from-red-900/95 via-red-800/95 to-red-900/95 backdrop-blur-xl border-2 border-red-500/60 rounded-2xl px-4 py-4 shadow-2xl"
+        animate={{
+          boxShadow: [
+            '0 8px 32px rgba(220, 38, 38, 0.4)',
+            '0 8px 48px rgba(220, 38, 38, 0.6)',
+            '0 8px 32px rgba(220, 38, 38, 0.4)',
+          ],
+        }}
+        transition={{ duration: 1.5, repeat: Infinity }}
+      >
+        <div className="flex items-start gap-3">
+          <motion.div
+            className="w-10 h-10 rounded-full bg-red-500/30 flex items-center justify-center border border-red-400/50 flex-shrink-0"
+            animate={{ scale: [1, 1.15, 1] }}
+            transition={{ duration: 0.8, repeat: Infinity }}
+          >
+            <span className="text-xl">👆</span>
+          </motion.div>
+          <div className="flex-1">
+            <h3 className="text-white font-cinzel font-bold text-base mb-1">Choose Your Path</h3>
+            <p className="text-red-100 text-xs leading-relaxed">
+              Tap any breathing style card above to unlock the rest of the website
+            </p>
+            <motion.button
+              onClick={onSelectBreathing}
+              className="mt-2 text-xs text-wisteria-light underline"
+              whileTap={{ scale: 0.95 }}
+            >
+              Scroll to breathing styles ↑
+            </motion.button>
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+function DesktopScrollLock({ isVisible }) {
+  if (!isVisible) return null;
+  
+  return (
+    <motion.div
+      className="fixed bottom-0 left-0 right-0 z-40 pointer-events-none pb-8 hidden md:block"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <motion.div
+        className="mx-auto max-w-xl px-4"
+        initial={{ y: 50 }}
+        animate={{ y: 0 }}
+        transition={{ type: 'spring', damping: 20 }}
+      >
+        <motion.div
+          className="bg-gradient-to-r from-red-900/80 via-red-800/80 to-red-900/80 backdrop-blur-lg border border-red-500/50 rounded-2xl px-6 py-4 shadow-2xl"
+          animate={{
+            boxShadow: [
+              '0 0 30px rgba(220, 38, 38, 0.3)',
+              '0 0 60px rgba(220, 38, 38, 0.5)',
+              '0 0 30px rgba(220, 38, 38, 0.3)',
+            ],
+          }}
+          transition={{ duration: 1.5, repeat: Infinity }}
+        >
+          <div className="flex items-center justify-center gap-4">
+            <motion.div
+              className="w-10 h-10 rounded-full bg-red-500/20 flex items-center justify-center border border-red-400/50"
+              animate={{ scale: [1, 1.2, 1], rotate: [0, 10, -10, 0] }}
+              transition={{ duration: 0.5, repeat: Infinity }}
+            >
+              <span className="text-xl">🔒</span>
+            </motion.div>
+            <div className="text-center">
+              <h3 className="text-lg font-cinzel font-bold text-white">Path Blocked</h3>
+              <p className="text-red-200 text-sm">Select a breathing style above to continue</p>
+            </div>
+            <motion.div
+              className="w-10 h-10 rounded-full bg-red-500/20 flex items-center justify-center border border-red-400/50"
+              animate={{ scale: [1, 1.2, 1], rotate: [0, -10, 10, 0] }}
+              transition={{ duration: 0.5, repeat: Infinity, delay: 0.25 }}
+            >
+              <span className="text-xl">🔒</span>
+            </motion.div>
+          </div>
+        </motion.div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
 function AppContent() {
   const mainRef = useRef(null);
   const { selectedBreathing } = useBreathing();
   const [showScrollLock, setShowScrollLock] = useState(false);
-  const breathingSectionRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const scrollLockRef = useRef({ isLocked: false });
 
+  // Detect mobile
   useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768 || 'ontouchstart' in window);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Scroll detection - gentler approach for mobile
+  useEffect(() => {
+    let ticking = false;
+    
     const handleScroll = () => {
-      if (selectedBreathing === 'none') {
-        const breathingSection = document.getElementById('breathing');
-        if (breathingSection) {
-          const rect = breathingSection.getBoundingClientRect();
-          const breathingBottom = rect.bottom;
-          // Show lock overlay when user tries to scroll past breathing section
-          setShowScrollLock(breathingBottom < window.innerHeight * 0.3);
-        }
-      } else {
-        setShowScrollLock(false);
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          if (selectedBreathing === 'none') {
+            const breathingSection = document.getElementById('breathing');
+            if (breathingSection) {
+              const rect = breathingSection.getBoundingClientRect();
+              // Show lock when breathing section is in view but user tries to go past
+              const shouldLock = rect.top < 100 && rect.bottom < window.innerHeight * 0.8;
+              setShowScrollLock(shouldLock);
+              scrollLockRef.current.isLocked = shouldLock;
+            }
+          } else {
+            setShowScrollLock(false);
+            scrollLockRef.current.isLocked = false;
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
@@ -194,44 +317,33 @@ function AppContent() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [selectedBreathing]);
 
+  // Gentle scroll guidance - only on desktop
   useEffect(() => {
-    if (selectedBreathing === 'none') {
-      // Only prevent scrolling PAST the breathing section, not TO it
-      const preventScrollPast = (e) => {
+    if (selectedBreathing === 'none' && !isMobile) {
+      let lastScrollY = window.scrollY;
+      
+      const gentleRedirect = (e) => {
         const breathingSection = document.getElementById('breathing');
-        if (breathingSection && e.deltaY > 0) {
+        if (breathingSection && scrollLockRef.current.isLocked) {
           const rect = breathingSection.getBoundingClientRect();
-          // Only block if breathing section top is visible AND user tries to scroll down past it
-          const breathingTopVisible = rect.top <= 0;
-          if (breathingTopVisible) {
-            e.preventDefault();
-            // Keep user at the breathing section
-            breathingSection.scrollIntoView({ behavior: 'smooth' });
+          const scrollDelta = window.scrollY - lastScrollY;
+          
+          // Only intervene if user is actively scrolling down past the section
+          if (scrollDelta > 5 && rect.top < -50) {
+            e.preventDefault?.();
+            window.scrollTo({
+              top: breathingSection.offsetTop,
+              behavior: 'smooth'
+            });
           }
         }
+        lastScrollY = window.scrollY;
       };
       
-      // Also prevent touch scrolling past
-      const preventTouchScroll = (e) => {
-        const breathingSection = document.getElementById('breathing');
-        if (breathingSection) {
-          const rect = breathingSection.getBoundingClientRect();
-          const breathingTopVisible = rect.top <= 0;
-          if (breathingTopVisible) {
-            e.preventDefault();
-          }
-        }
-      };
-      
-      window.addEventListener('wheel', preventScrollPast, { passive: false });
-      window.addEventListener('touchmove', preventTouchScroll, { passive: false });
-      
-      return () => {
-        window.removeEventListener('wheel', preventScrollPast);
-        window.removeEventListener('touchmove', preventTouchScroll);
-      };
+      window.addEventListener('scroll', gentleRedirect, { passive: false });
+      return () => window.removeEventListener('scroll', gentleRedirect);
     }
-  }, [selectedBreathing]);
+  }, [selectedBreathing, isMobile]);
 
   const scrollToBreathing = () => {
     const element = document.getElementById('breathing');
@@ -283,7 +395,13 @@ function AppContent() {
 
         <AnimatePresence>
           {showScrollLock && selectedBreathing === 'none' && (
-            <ScrollLockOverlay />
+            <>
+              <MobileScrollLock 
+                isVisible={isMobile} 
+                onSelectBreathing={scrollToBreathing} 
+              />
+              <DesktopScrollLock isVisible={!isMobile} />
+            </>
           )}
         </AnimatePresence>
       </main>
