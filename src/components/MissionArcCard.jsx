@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useArcFilter } from '../context/ArcFilterContext';
 import { useBreathing } from '../context/BreathingContext';
-import { CinematicArc, ARCS_DATA } from './CinematicArc';
+import { CinematicArc, ARCS_DATA, MissionModal } from './CinematicArc';
 import { Flame, Waves, Zap, Wind, PawPrint, Sparkles, Sword, Crown, Music, X, Clock, Users, Trophy, FilterX, Target, Bot, Plane, Box, Film, Camera, Gamepad2, Brain, Puzzle, Code, Mic, MessageSquare, Scroll, Star, Car, Flag } from 'lucide-react';
 
 const BREATHING_ICONS = {
@@ -347,8 +347,8 @@ function ArcOverviewCard({ arcKey, arc, onClick }) {
         border: `2px solid ${arc.color}40`,
       }}
       onClick={onClick}
-      whileHover={{ 
-        scale: 1.03, 
+      whileHover={{
+        scale: 1.03,
         borderColor: arc.color,
         boxShadow: `0 0 40px ${arc.color}40`,
       }}
@@ -477,8 +477,8 @@ export function MissionArcs() {
                 border: `1px solid ${mission.arcColor}30`,
               }}
               onClick={() => setSelectedEvent(mission)}
-              whileHover={{ 
-                scale: 1.02, 
+              whileHover={{
+                scale: 1.02,
                 borderColor: mission.arcColor,
                 boxShadow: `0 0 30px ${mission.arcColor}30`,
               }}
@@ -488,7 +488,7 @@ export function MissionArcs() {
               viewport={{ once: true }}
             >
               <div className="flex items-start gap-3">
-                <div 
+                <div
                   className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
                   style={{ background: `${mission.arcColor}25` }}
                 >
@@ -522,7 +522,11 @@ export function MissionArcs() {
 
       <AnimatePresence>
         {selectedEvent && (
-          <EventModal event={selectedEvent} onClose={() => setSelectedEvent(null)} />
+          <MissionModal
+            mission={selectedEvent}
+            accentColor={selectedEvent.arcColor}
+            onClose={() => setSelectedEvent(null)}
+          />
         )}
       </AnimatePresence>
     </section>

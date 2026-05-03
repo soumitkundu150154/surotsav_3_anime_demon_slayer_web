@@ -774,7 +774,7 @@ function MissionCard({ mission, accentColor, compact = false }) {
   );
 }
 
-function MissionModal({ mission, accentColor, onClose }) {
+export function MissionModal({ mission, accentColor, onClose }) {
   const Icon = ICONS[mission.icon] || Target;
 
   return (
