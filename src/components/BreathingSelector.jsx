@@ -272,11 +272,11 @@ export function BreathingSelector() {
   const isNoneSelected = selectedBreathing === 'none';
 
   return (
-    <section id="breathing" className="relative min-h-screen w-full py-24 px-6 bg-gradient-to-b from-[#0c0c1a] via-[#0f0f20] to-[#0c0c1a]">
+    <section id="breathing" className="relative min-h-screen w-full py-24 bg-gradient-to-b from-[#0c0c1a] via-[#0f0f20] to-[#0c0c1a] flex items-center justify-center">
       {isNoneSelected && <RequirementWarning />}
       {isNoneSelected && <LockOverlay />}
       
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: 30 }}

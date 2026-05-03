@@ -132,7 +132,7 @@ export function FinalSelectionHero({ onEnter }) {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-screen w-full overflow-hidden bg-gradient-to-b from-[#0a0a1a] via-[#1a1a3e] to-[#0c0c1a]"
+      className="relative min-h-screen w-full overflow-hidden bg-gradient-to-b from-[#0a0a1a] via-[#1a1a3e] to-[#0c0c1a] flex items-center justify-center"
     >
       <motion.div
         className="absolute inset-0"
@@ -194,7 +194,7 @@ export function FinalSelectionHero({ onEnter }) {
       <ElementalParticleScene className="opacity-50" />
 
       <motion.div
-        className="relative z-10 flex flex-col items-center justify-center min-h-screen px-6 text-center"
+        className="relative z-10 flex flex-col items-center justify-center w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center"
         style={{ y: textY, opacity }}
       >
         <motion.div
