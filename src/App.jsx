@@ -117,61 +117,51 @@ function Footer() {
   );
 }
 
-function ScrollLockOverlay({ onSelectBreathing }) {
-  const [showPulse, setShowPulse] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowPulse(false);
-    }, 3000);
-    return () => clearTimeout(timer);
-  }, []);
-
+function ScrollLockOverlay() {
   return (
     <motion.div
-      className="fixed inset-0 z-40 pointer-events-none flex items-end justify-center pb-32"
+      className="fixed bottom-0 left-0 right-0 z-40 pointer-events-none pb-8"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
       <motion.div
-        className="pointer-events-auto bg-black/80 backdrop-blur-md border border-wisteria/50 rounded-2xl px-8 py-6 max-w-lg mx-4"
-        initial={{ y: 50, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
+        className="mx-auto max-w-xl px-4"
+        initial={{ y: 50 }}
+        animate={{ y: 0 }}
         transition={{ type: 'spring', damping: 20 }}
       >
-        <div className="flex items-center gap-4 mb-4">
-          <motion.div
-            className="w-12 h-12 rounded-full flex items-center justify-center"
-            style={{ background: 'linear-gradient(135deg, #a29bfe30, #6c5ce730)' }}
-            animate={showPulse ? {
-              scale: [1, 1.2, 1],
-              boxShadow: [
-                '0 0 20px rgba(162, 155, 254, 0.4)',
-                '0 0 40px rgba(162, 155, 254, 0.6)',
-                '0 0 20px rgba(162, 155, 254, 0.4)',
-              ],
-            } : {}}
-            transition={{ duration: 1.5, repeat: showPulse ? Infinity : 0 }}
-          >
-            <span className="text-2xl">⚔️</span>
-          </motion.div>
-          <div>
-            <h3 className="text-xl font-cinzel font-bold text-white">Choose Your Path</h3>
-            <p className="text-wisteria-light text-sm">A breathing style is required to proceed</p>
-          </div>
-        </div>
-        <p className="text-gray-400 text-sm leading-relaxed">
-          To explore the Demon Slayer Corps and continue your journey, 
-          you must first select a breathing style above. Each style grants 
-          unique powers to aid you in the battles ahead.
-        </p>
         <motion.div
-          className="mt-4 flex items-center gap-2 text-wisteria/70 text-xs"
-          animate={{ opacity: [0.5, 1, 0.5] }}
-          transition={{ duration: 2, repeat: Infinity }}
+          className="bg-gradient-to-r from-red-900/80 via-red-800/80 to-red-900/80 backdrop-blur-lg border border-red-500/50 rounded-2xl px-6 py-4 shadow-2xl"
+          animate={{
+            boxShadow: [
+              '0 0 30px rgba(220, 38, 38, 0.3)',
+              '0 0 60px rgba(220, 38, 38, 0.5)',
+              '0 0 30px rgba(220, 38, 38, 0.3)',
+            ],
+          }}
+          transition={{ duration: 1.5, repeat: Infinity }}
         >
-          <span>↑ Scroll up to select your breathing style</span>
+          <div className="flex items-center justify-center gap-4">
+            <motion.div
+              className="w-10 h-10 rounded-full bg-red-500/20 flex items-center justify-center border border-red-400/50"
+              animate={{ scale: [1, 1.2, 1], rotate: [0, 10, -10, 0] }}
+              transition={{ duration: 0.5, repeat: Infinity }}
+            >
+              <span className="text-xl">🔒</span>
+            </motion.div>
+            <div className="text-center">
+              <h3 className="text-lg font-cinzel font-bold text-white">Path Blocked</h3>
+              <p className="text-red-200 text-sm">Select a breathing style above to continue</p>
+            </div>
+            <motion.div
+              className="w-10 h-10 rounded-full bg-red-500/20 flex items-center justify-center border border-red-400/50"
+              animate={{ scale: [1, 1.2, 1], rotate: [0, -10, 10, 0] }}
+              transition={{ duration: 0.5, repeat: Infinity, delay: 0.25 }}
+            >
+              <span className="text-xl">🔒</span>
+            </motion.div>
+          </div>
         </motion.div>
       </motion.div>
     </motion.div>
@@ -206,25 +196,40 @@ function AppContent() {
 
   useEffect(() => {
     if (selectedBreathing === 'none') {
-      document.body.style.overflow = 'hidden';
-      // Snap back to breathing section if user tries to scroll down
-      const preventScroll = (e) => {
+      // Only prevent scrolling PAST the breathing section, not TO it
+      const preventScrollPast = (e) => {
         const breathingSection = document.getElementById('breathing');
-        if (breathingSection) {
+        if (breathingSection && e.deltaY > 0) {
           const rect = breathingSection.getBoundingClientRect();
-          if (rect.bottom < window.innerHeight && e.deltaY > 0) {
+          // Only block if breathing section top is visible AND user tries to scroll down past it
+          const breathingTopVisible = rect.top <= 0;
+          if (breathingTopVisible) {
             e.preventDefault();
+            // Keep user at the breathing section
             breathingSection.scrollIntoView({ behavior: 'smooth' });
           }
         }
       };
-      window.addEventListener('wheel', preventScroll, { passive: false });
-      return () => {
-        document.body.style.overflow = '';
-        window.removeEventListener('wheel', preventScroll);
+      
+      // Also prevent touch scrolling past
+      const preventTouchScroll = (e) => {
+        const breathingSection = document.getElementById('breathing');
+        if (breathingSection) {
+          const rect = breathingSection.getBoundingClientRect();
+          const breathingTopVisible = rect.top <= 0;
+          if (breathingTopVisible) {
+            e.preventDefault();
+          }
+        }
       };
-    } else {
-      document.body.style.overflow = '';
+      
+      window.addEventListener('wheel', preventScrollPast, { passive: false });
+      window.addEventListener('touchmove', preventTouchScroll, { passive: false });
+      
+      return () => {
+        window.removeEventListener('wheel', preventScrollPast);
+        window.removeEventListener('touchmove', preventTouchScroll);
+      };
     }
   }, [selectedBreathing]);
 
@@ -278,7 +283,7 @@ function AppContent() {
 
         <AnimatePresence>
           {showScrollLock && selectedBreathing === 'none' && (
-            <ScrollLockOverlay onSelectBreathing={scrollToBreathing} />
+            <ScrollLockOverlay />
           )}
         </AnimatePresence>
       </main>

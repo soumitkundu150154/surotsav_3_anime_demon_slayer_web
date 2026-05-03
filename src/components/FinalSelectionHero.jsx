@@ -259,41 +259,121 @@ export function FinalSelectionHero({ onEnter }) {
           Will You Join the Corps?
         </motion.p>
 
+        {/* Pulsing glow behind button */}
+        <motion.div
+          className="absolute mb-4"
+          initial={{ opacity: 1 }}
+          animate={{
+            scale: [1, 1.3, 1],
+            opacity: [0.3, 0.6, 0.3],
+          }}
+          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+          style={{
+            width: '280px',
+            height: '80px',
+            background: 'radial-gradient(ellipse, rgba(162, 155, 254, 0.5) 0%, transparent 70%)',
+            filter: 'blur(20px)',
+          }}
+        />
+
+        {/* Animated arrows pointing down at button */}
+        <motion.div
+          className="absolute -mt-20 flex flex-col items-center gap-1"
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 1, repeat: Infinity, ease: 'easeInOut' }}
+        >
+          <span className="text-wisteria/60 text-xs font-cinzel tracking-widest uppercase">Your journey awaits</span>
+          <motion.svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#a29bfe"
+            strokeWidth="2"
+            animate={{ opacity: [0.4, 1, 0.4] }}
+            transition={{ duration: 1.5, repeat: Infinity }}
+          >
+            <path d="M12 5v14M5 12l7 7 7-7" />
+          </motion.svg>
+        </motion.div>
+
         <motion.button
           onClick={onEnter}
           className="group relative px-12 py-4 text-lg font-cinzel tracking-wider overflow-hidden"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 2.2 }}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.98 }}
+          whileHover={{ scale: 1.08 }}
+          whileTap={{ scale: 0.95 }}
         >
+          {/* Outer pulsing ring */}
           <motion.div
-            className="absolute inset-0 border-2 border-wisteria"
+            className="absolute -inset-2 rounded-xl border-2 border-wisteria/50"
+            animate={{
+              scale: [1, 1.1, 1],
+              opacity: [0.5, 0.2, 0.5],
+              boxShadow: [
+                '0 0 20px rgba(162, 155, 254, 0.3)',
+                '0 0 40px rgba(162, 155, 254, 0.6)',
+                '0 0 20px rgba(162, 155, 254, 0.3)',
+              ],
+            }}
+            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+          />
+
+          <motion.div
+            className="absolute inset-0 border-2 border-wisteria bg-wisteria/10"
             initial={{ clipPath: 'polygon(0 0, 0 0, 0 100%, 0 100%)' }}
             whileHover={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)' }}
             transition={{ duration: 0.4 }}
           />
+          
           <motion.div
-            className="absolute inset-1 bg-gradient-to-r from-wisteria/20 to-wisteria-dark/20"
-            initial={{ opacity: 0 }}
-            whileHover={{ opacity: 1 }}
+            className="absolute inset-0 bg-gradient-to-r from-wisteria via-wisteria-light to-wisteria opacity-0 group-hover:opacity-20"
             transition={{ duration: 0.3 }}
           />
-          <span className="relative z-10 text-wisteria-light group-hover:text-white transition-colors">
+          
+          <span className="relative z-10 text-wisteria-light group-hover:text-white transition-colors duration-300 flex items-center gap-3">
+            <motion.span
+              animate={{ x: [0, 3, 0] }}
+              transition={{ duration: 1, repeat: Infinity }}
+            >
+              ⚔️
+            </motion.span>
             Join the Corps
+            <motion.span
+              animate={{ x: [0, -3, 0] }}
+              transition={{ duration: 1, repeat: Infinity, delay: 0.5 }}
+            >
+              ⚔️
+            </motion.span>
           </span>
 
           <motion.div
-            className="absolute inset-1"
+            className="absolute inset-0"
             initial={{ x: '-100%' }}
             whileHover={{ x: '100%' }}
             transition={{ duration: 0.6 }}
             style={{
-              background: 'linear-gradient(90deg, transparent, rgba(162, 155, 254, 0.3), transparent)',
+              background: 'linear-gradient(90deg, transparent, rgba(162, 155, 254, 0.4), transparent)',
             }}
           />
         </motion.button>
+
+        {/* Urgency text below button */}
+        <motion.p
+          className="absolute mt-24 text-sm text-wisteria/60 font-cinzel tracking-wider"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 3, duration: 1 }}
+        >
+          <motion.span
+            animate={{ opacity: [0.4, 1, 0.4] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            Click to begin your destiny
+          </motion.span>
+        </motion.p>
       </motion.div>
 
       <motion.div
